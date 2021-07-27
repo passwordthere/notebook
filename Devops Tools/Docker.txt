@@ -1,0 +1,25 @@
+image
+    docker image ls
+    docker image rm [name]
+    docker image pull library/hello-world //拉取到本地（默认组library）
+container
+    docker container run hello-world //从img生成实例（会自动pull镜像）
+    docker container run -it ubuntu bash
+    docker container kill [containID]
+    docker container ls //running
+    docker container ls --all //running + stoped
+    docker container rm [containID]
+    >>>
+    $ docker container run -p 8000:3000 -it koa-demo:0.0.1 /bin/bash
+    -p 8000:3000 将容器的3000映射到本机的8000
+    -it 将容器的shell映射到本机的shell
+    /bin/bash 容器启动后运行的第一个命令
+Dockerfile
+    .dockerignore
+    Dockerfile: 
+        FROM node:8.4 //image文件继承官方的node image，冒号后表示标签
+        COPY . /app //将当前目录下所有文件打包
+        WORKDIR /app
+        RUN npm install --registry=https://registry.npm.taobao.org //在工作目录下安装所有依赖并一齐打包
+        EXPOSE 3000
+    docker image build -t <name:tag> .
