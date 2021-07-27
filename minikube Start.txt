@@ -1,0 +1,17 @@
+minikube Start
+kubectl cluster-info
+kubectl get nodes
+------------------
+kubectl create deployment <name> --image=xxx:xx
+kubectl get deployments
+kubectl proxy
+curl
+echo -e "\n\n\n\e[92mStarting Proxy. After starting it will not output a response. Please click the first Terminal Tab\n"
+curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/
+---------------------
+kubectl get
+kubectl describe
+kubectl logs    //打印pod和其中容器的日志
+kubectl exec    //在pod中的容器上执行命令   //ti
+exit
+

@@ -1,0 +1,40 @@
+session
+    tmux new -s <name>
+    tmux detach
+    tmux ls //session
+    tmux attach -t <num/name>
+    tmux kill-session -t <num/name>
+    tmux swtich -t <num/name>
+    -
+    d   detach
+    s   ls
+    $   rename
+pane
+    tmux split-window [-h]
+    tmux select-pane -UDLR
+    tmux swap-pane -UD 
+    -
+    %   split hl
+    "   split
+    ar  cursor
+    {   swap U 
+    }   swap D 
+    +o  all ++1, ^>$
+    x   close
+    !   alone
+    z   full screen
+    +ar resize
+    q   show num
+window
+    tmux new-window -n <name>
+    tmux select-window -t <num/name>
+    tmux rename-window <name>
+    -
+    c   new
+    p   last
+    n   next
+    num num
+    w   select from a list
+    ,   rename
+other
+    tmux source-file ~/.tmux.conf

@@ -1,0 +1,30 @@
+移动 
+
+Alt – b ：往回(左)移动一个单词
+Alt – f ：往后(右)移动一个单词
+Ctrl – xx ：在命令行尾和光标之间移动
+
+======================================================
+
+编辑
+
+Alt – d ：由光标位置开始，往右删除单词。往行尾删
+ctrl – t ：交换光标处和之前两个字符的位置。
+Alt + . ：使用上一条命令的最后一个参数。
+
+======================================================
+
+./cmd --option1 --option2 --option3 --option4 --option5 --option6 --option7 --option8 --option9 --option10 --option11 --option12 --option13 --option14 --option15 --option16 --option17 --option18 --option19 --option20 --option21 --option22 --option23 --option24 --option25 --option26 --option27 --option28 --option29 --option30 --option31 --option32 --option33 --option34 --option35 --option36 --option37 --option38 --option39 --option40 --option41 --option42 --option43 --option44 --option45 --option46 --option47 --option48 --option49 --option50 
+
+1 使用Ctrl+ x后跟Ctrl+ e在由$FCEDITor $EDITOR或emacs（按此顺序尝试）指定的编辑器中打开当前行。
+2 如果您早先运行了命令，请按Ctrl+ r进行反向历史搜索并键入option25（在这种情况下）。该行将显示。点击Tab此处开始编辑。
+3 将历史记录扩展与s///修饰符一起使用。例如，!-2:s/--option25/--newoption/将重新运行倒数第二个命令，但是替换option25。要修改最后一个./cmd命令，请使用以下!string语法：!./cmd:s/--option25/--newoption/
+可以使用任何定界符代替/来代替。
+4 如果编辑前一行，则可以使用快速替换： ^--option25^--newoption
+5 3f5;;B
+
+=====================================================
+
+set -o vi
+set -o emacs
+cd /home/me/some/super/deep/dir/that/i/do/not/want/to/type/again ; ll !#:2 
