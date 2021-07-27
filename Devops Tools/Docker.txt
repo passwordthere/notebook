@@ -1,14 +1,25 @@
+    docker login
 image
     docker image ls
     docker image rm [name]
     docker image pull library/hello-world //拉取到本地（默认组library）
+    docker image tag [name] [user]/[repo]:[tag]
+    docker image build -t [user]/[repo]:[tag]
+    docker image push [user]/[repo]:[tag]
 container
-    docker container run hello-world //从img生成实例（会自动pull镜像）
+    docker container run hello-world //从img生成、新建实例（会自动pull镜像）
+    docker container start [id]
+    docker container stop [id]
+    dokcer container logs [id] //查看容器里面的shell标准输出（若没有使用-it）
+    docker container inspect [id] //容器信息
+    docker container exec -it [id] /bin/bash //进入容器（若没有使用-it）
     docker container run -it ubuntu bash
-    docker container kill [containID]
+                         -rm //停止后删除
+    docker container kill [id] //等价于ctrl+d
     docker container ls //running
     docker container ls --all //running + stoped
-    docker container rm [containID]
+    docker container rm [id]
+    docker container cp [id]:[/path/to/file] //从容器拷贝到本机
     >>>
     $ docker container run -p 8000:3000 -it koa-demo:0.0.1 /bin/bash
     -p 8000:3000 将容器的3000映射到本机的8000
@@ -22,4 +33,5 @@ Dockerfile
         WORKDIR /app
         RUN npm install --registry=https://registry.npm.taobao.org //在工作目录下安装所有依赖并一齐打包
         EXPOSE 3000
+        CMD node demos/01.js //RUN(N)执行结果亦打包，CMD(1)容器启动后执行
     docker image build -t <name:tag> .
