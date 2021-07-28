@@ -1,0 +1,15 @@
+Downtime（PJ都是有文档的）
+
+7/28/2021
+    VIP Movement
+        同一网段内  self service > move instance
+        不同一网段  rename VIPs //Hostname +old, -new                     DR（disaster request）
+        DR的VIP查pool，随机看一台DR机器检查
+    Process
+        1 检查应用是否停止 //lsof /sapdb/<SID>/sapdata1
+        2 Rename //检查Pool是否正确
+        3 move instance //source(Live), target(System available in pool)
+        4 Verify via Mind（VIP的FQND）
+        5 Update external ticket（Payroll > SF Reroute）
+        6 Update GMP inventory//Device Management > Live Update... 
+        7 Check and fix each SID object in GMP //don't need to do, DR has no SID(C4Z_DR)

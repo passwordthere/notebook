@@ -1,0 +1,16 @@
+curl
+    -o //save
+    -L //redirect
+    -i //header
+    -v //detail
+    --trace-ascii output.txt
+    -X POST --data-urlencode "date=xxx" google.com/form.cgi
+       DELETE
+    --form upload=@filename --form press=ok [URL]
+    --referer from.com [URL]
+    --user-agent "[User Agent]" [URL]
+    --cookie "name=xxx" [URL]
+        -c //save
+        -b //use
+    --header "Content-Type:application/json" [URL]
+    --user name:password [URL]

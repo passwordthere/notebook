@@ -15,6 +15,12 @@ container
     docker container exec -it [id] /bin/bash //进入容器（若没有使用-it）
     docker container run -it ubuntu bash
                          -rm //停止后删除
+                         -d //启动后后台
+                         -p 127.0.0.2:8080:80 //将容器的80映射到127.0.0.2的8080
+                         --name 
+                         --volume "$PWD":/var/www/html
+                         --link //这个：那个
+                         
     docker container kill [id] //等价于ctrl+d
     docker container ls //running
     docker container ls --all //running + stoped

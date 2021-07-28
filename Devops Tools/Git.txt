@@ -1,0 +1,92 @@
+config
+    git config --global user.name <name>
+    git config --global user.email <email>
+    git config --global core.editor <editor>
+    git config --global push.default simple/matching
+git
+    git add
+    git commit
+    git checkout
+                 -b newBranch origin/master
+    git push <hostname> <localbranch> <branch>
+    git clone <url> <directory>
+              -o <hostname> [url]
+              [user@]example.com:path/to/repo.git
+    git fetch <hostname> <branch>
+    git pull <hostname> <branch>:<localbranch>
+    git remote
+                -v //show url
+                show <hostname>
+                add <hostname> <url>
+                rm <hostname>
+                rename <old> <new>
+    git branch -r //current
+               -a //all
+    git merge
+              origin/master
+    git rebase
+              origin/master
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
+
+work
+    git status
+    git add
+    git commit
+    git reset //git revert
+    git push
+    git remote
+                -v //list
+                add <name> <url> //git remote add john http://dev.example.com/john.git
+                rm <name>
+                rename <old-name> <new-name>
+    git fetch <remote> <branch>
+    git pull <remote>
+    git log --oneline
+    git checkout //snapshot eg. git checkout a1e8fb5 hello.py
+
+
+
+
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+[user]
+
+name = John Smith
+
+email = john@example.com
+
+[alias]
+
+st = status
+
+co = checkout
+
+br = branch
+
+up = rebase
+
+ci = commit
+
+[core]
+
+editor = vim
