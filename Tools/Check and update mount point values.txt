@@ -1,0 +1,26 @@
+3. Step: Check and update mount point values
+
+- Check, if volume size is at least as big as requested in template
+please check that the size of the mount "/sapdb/ FSW /sapdata1" should be 370 GB
+please check that the size of the mount "/sapdb/ FSW /saparch" Should be 50 GB
+please check that the size of the mount "/sapdb/ FSW /saplog1" Should be 50 GB
+
+nsq1gmp209vipay0104:/vol3_FSU/FSU                              50G  288K   50G   1% /sapdb/FSU/saparch
+nsq1gmp209vipay0104:/vol2_FSU/q_dbdata                        333G  320K  333G   1% /sapdb/FSU/sapdata1
+nsq1gmp209vipay0104:/vol1_FSU/q_dblog                          45G  384K   45G   1% /sapdb/FSU/saplog1
+
+nsq1gmp209vipay0105:/vol3_FSW/FSW                              50G  320K   50G   1% /sapdb/FSW/saparch
+nsq1gmp209vipay0105:/vol2_FSW/q_dbdata                        333G  320K  333G   1% /sapdb/FSW/sapdata1
+nsq1gmp209vipay0105:/vol1_FSW/q_dblog                          45G  416K   45G   1% /sapdb/FSW/saplog1
+
+nsq1gmp209vipay0104:/vol3_FSV/FSV                              50G  288K   50G   1% /sapdb/FSV/saparch
+nsq1gmp209vipay0104:/vol2_FSV/q_dbdata                        333G  320K  333G   1% /sapdb/FSV/sapdata1
+nsq1gmp209vipay0104:/vol1_FSV/q_dblog                          45G  384K   45G   1% /sapdb/FSV/saplog1
+
+- If not, resize the volumes with Self Service
+[Volume: Options] Successfully set option Size to 50g on volume(s): nsq1gmp209vipay0104:/vol1_FSU   //0A149C1CF34311EBBFE223CB14EF60CA
+[Volume: Options] Successfully set option Size to 500g on volume(s): nsq1gmp209vipay0104:/vol2_FSU  //E1054494F34111EB8AA998ED53BDCD9E
+[Volume: Options] Successfully set option Size to 50g on volume(s): nsq1gmp209vipay0104:/vol1_FSV   //90ECC048F34311EBB1C9635AD38BC7CC
+[Volume: Options] Successfully set option Size to 500g on volume(s): nsq1gmp209vipay0104:/vol2_FSV  //0A149C1CF34311EBBFE223CB14EF60CA
+[Volume: Options] Successfully set option Size to 50g on volume(s): nsq1gmp209vipay0105:/vol1_FSW   //FA7CFF5AF34311EBB81BFCE514EF60CA
+[Volume: Options] Successfully set option Size to 500g on volume(s): nsq1gmp209vipay0105:/vol2_FSW  //B64AB700F34311EBBF5C0FDE14EF60CA

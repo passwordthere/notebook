@@ -1,0 +1,57 @@
+Hello Colleagues,
+
+Please prepare Hardware put the systems into one customer segment.
+
+1. Development System:
+
+System ID : FSU
+Installation Template : PAYROLL_MEDIUM
+Resource Pool : PROD-NSQ-PAYROLL-STOR01
+Network Segment : BYD-Prod-Nsq Payroll02 
+PayrollSize : 8 core,32 GB,all on one VM
+SWAP File Needed: 20GB
+Backup relevant: YES
+
+please check that the size of the mount "/sapdb/ FSU /sapdata1" should be 370 GB
+please check that the size of the mount "/sapdb/ FSU /saparch" Should be 50 GB
+please check that the size of the mount "/sapdb/ FSU /saplog1" Should be 50 GB
+
+2. Quality Assurance System:
+
+System ID : FSV
+Installation Template : PAYROLL_MEDIUM
+Resource Pool : PROD-NSQ-PAYROLL-STOR01
+Network Segment : BYD-Prod-Nsq Payroll02 
+PayrollSize : 8 core,32 GB,all on one VM
+SWAP File Needed: 20GB
+Backup relevant: YES
+
+please check that the size of the mount "/sapdb/ FSV /sapdata1" should be 370 GB
+please check that the size of the mount "/sapdb/ FSV /saparch" Should be 50 GB
+please check that the size of the mount "/sapdb/ FSV /saplog1" Should be 50 GB
+
+3. Production System:
+
+System ID : FSW
+Installation Template : PAYROLL_LARGE_HA
+Resource Pool : PROD-NSQ-PAYROLL-STOR01
+Network Segment : BYD-Prod-Nsq Payroll02 
+PayrollSize: 
+CI instance (vaciFSW) – 1 VM with 8 core 32 GB and 20 GB swap size
+DB and CS instance (vacsfsw , vadbfsw) –1 VM with 8 core 32 GB and 20 GB SWAP size
+Additional ABAP Instance (vaai01fsw) – 1 VM with 8 core 32 GB and 20 GB swap size
+please check that the size of the mount "/sapdb/ FSW /sapdata1" should be 370 GB
+please check that the size of the mount "/sapdb/ FSW /saparch" Should be 50 GB
+please check that the size of the mount "/sapdb/ FSW /saplog1" Should be 50 GB
+
+4. Export/Mount Central Transport directory
+ 
+ On production system (vacifsw) Please export <filer>:/vol/vol1_ FSW /q_sysfiles/trans and mount to Development system (vacifsu) and Quality system (vacifsv) as /usr/sap/trans.
+
+Once done please send the incident back to PAYROLL TEAM  queue.
+
+Best regards
+SPC PROVISIONING TEAM
+
+- Follow 
+https://bit-twiki.wdf.sap.corp/bin/view/Level2/Payroll/SystemSetupSLES12

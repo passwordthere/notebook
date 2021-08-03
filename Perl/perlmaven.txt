@@ -1,0 +1,13 @@
+use 5.010;
+use strict;
+use warnings;
+use diagnostics;
+
+chomp //去掉字符串末尾的换行符"\n"
+
+index
+    n //偏移量
+    -1 //无了
+substr 字符串 偏移量 字符串长度 要替换的字符串
+
+

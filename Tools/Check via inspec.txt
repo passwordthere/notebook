@@ -1,0 +1,234 @@
+5. Step: Check via inspec
+
+- recheck
+(inspec01-nsq) c5327170@vsa7251543:~> check_instance vsa8800418 -q
+
+Welcome to Inspec in Prod-NSQ-CIS-Legacy
+
+Quiet mode
+
+Checking vsa8800418 used for FSU in PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+
+
+Autodetected LoB: PAYROLL y/n
+Autodetected SID: FSU y/n
+Autodetected Instance Type: DEVTEST y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Skipping dataprotection, no EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_payroll_devtest -t ssh://$(whoami)@vsa8800418 --sudo --input-file /inspec_tmp/saas_testsuite/attributes/instances/lobs/payroll.yml --input sid=FSU | egrep -v '✔|↺'
+
+Profile: Instance checks for Payroll Dev and Test servers (check_instance_for_devtest_servers_payroll)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800418:22
+
+
+
+Profile: Instances checks of Payroll systems (check_instance_for_payroll_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800418:22
+
+
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5327170@vsa8800418:22
+
+
+
+Profile Summary: 16 successful controls, 0 control failures, 7 controls skipped
+Test Summary: 63 successful, 0 failures, 7 skipped
+
+(inspec01-nsq) c5327170@vsa7251543:~> check_instance vsa8800446 -q
+
+Welcome to Inspec in Prod-NSQ-CIS-Legacy
+
+Quiet mode
+
+Checking vsa8800446 used for FSV in PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+
+
+Autodetected LoB: PAYROLL y/n
+Autodetected SID: FSV y/n
+Autodetected Instance Type: DEVTEST y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Skipping dataprotection, no EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_payroll_devtest -t ssh://$(whoami)@vsa8800446 --sudo --input-file /inspec_tmp/saas_testsuite/attributes/instances/lobs/payroll.yml --input sid=FSV | egrep -v '✔|↺'
+
+Profile: Instance checks for Payroll Dev and Test servers (check_instance_for_devtest_servers_payroll)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800446:22
+
+
+
+Profile: Instances checks of Payroll systems (check_instance_for_payroll_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800446:22
+
+
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5327170@vsa8800446:22
+
+
+
+Profile Summary: 16 successful controls, 0 control failures, 7 controls skipped
+Test Summary: 63 successful, 0 failures, 7 skipped
+
+(inspec01-nsq) c5327170@vsa7251543:~> check_instance vsa8800491 -q
+
+Welcome to Inspec in Prod-NSQ-CIS-Legacy
+
+Quiet mode
+
+Checking vsa8800491 used for FSW (DB, CS) in PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+
+
+Autodetected LoB: PAYROLL y/n
+Autodetected SID: FSW y/n
+Autodetected Instance Type: DB y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Skipping dataprotection, no EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_payroll_db -t ssh://$(whoami)@vsa8800491 --sudo --input-file /inspec_tmp/saas_testsuite/attributes/instances/lobs/payroll.yml --input sid=FSW | egrep -v '✔|↺'
+
+Profile: Instance checks for Payroll DB servers (check_instance_for_db_servers_payroll)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800491:22
+
+  ×  check-instance-db-crontab-0.1: Instance Check: DB DR crontab (2 failed)
+     ×  File /var/spool/cron/tabs/fswadm content should match /copyLogBackups.sh/
+     expected nil to match /copyLogBackups.sh/
+     ×  File /var/spool/cron/tabs/fswadm content should match /pullStatusFile.sh/
+     expected nil to match /pullStatusFile.sh/
+
+
+Profile: Instance checks for DB systems (check_instance_for_db_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800491:22
+
+  ×  check-instance-sapservices-0.1: check_instance_common: Sapservice file (1 failed)
+     ×  should not be empty
+     expected `"".empty?` to return false, got true
+
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5327170@vsa8800491:22
+
+
+
+Profile: Instances checks of Payroll systems (check_instance_for_payroll_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800491:22
+
+
+
+Profile Summary: 16 successful controls, 2 control failures, 8 controls skipped
+Test Summary: 82 successful, 3 failures, 8 skipped
+
+(inspec01-nsq) c5327170@vsa7251543:~> check_instance vsa8800493 -q
+
+Welcome to Inspec in Prod-NSQ-CIS-Legacy
+
+Quiet mode
+
+yyy1Checking vsa8800493 used for FSW (AI01) in PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+
+
+Autodetected LoB: PAYROLL y/n
+Autodetected SID: FSW y/n
+Autodetected Instance Type: AI y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Skipping dataprotection, no EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_payroll_ai -t ssh://$(whoami)@vsa8800493 --sudo --input-file /inspec_tmp/saas_testsuite/attributes/instances/lobs/payroll.yml --input sid=FSW | egrep -v '✔|↺'
+
+Profile: Instance checks for Payroll AI servers (check_instance_for_ai_servers_payroll)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800493:22
+
+
+
+Profile: Instance checks for AI servers (check_instance_for_ai_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800493:22
+
+  ×  check-instance-sapservices-0.1: check_instance_common: Sapservice file (1 failed)
+     ×  should not be empty
+     expected `"".empty?` to return false, got true
+
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5327170@vsa8800493:22
+
+
+
+Profile: Instances checks of Payroll systems (check_instance_for_payroll_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800493:22
+
+
+
+Profile Summary: 13 successful controls, 1 control failure, 7 controls skipped
+Test Summary: 54 successful, 1 failure, 7 skipped
+
+(inspec01-nsq) c5327170@vsa7251543:~> check_instance vsa8800492 -q
+
+Welcome to Inspec in Prod-NSQ-CIS-Legacy
+
+Quiet mode
+
+Checking vsa8800492 used for FSW (CI) in PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+
+
+Autodetected LoB: PAYROLL y/n
+Autodetected SID: FSW y/n
+Autodetected Instance Type: CI y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Skipping dataprotection, no EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_payroll_ci -t ssh://$(whoami)@vsa8800492 --sudo --input-file /inspec_tmp/saas_testsuite/attributes/instances/lobs/payroll.yml --input sid=FSW | egrep -v '✔|↺'
+
+Profile: Instance checks for Payroll CI servers (check_instance_for_ci_servers_payroll)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800492:22
+
+
+
+Profile: Instance checks for CI systems (check_instance_for_ci_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800492:22
+
+  ×  check-instance-sapservices-0.1: check_instance_common: Sapservice file (1 failed)
+     ×  should not be empty
+     expected `"".empty?` to return false, got true
+
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5327170@vsa8800492:22
+
+
+
+Profile: Instances checks of Payroll systems (check_instance_for_payroll_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8800492:22
+
+
+
+Profile Summary: 13 successful controls, 1 control failure, 7 controls skipped
+Test Summary: 54 successful, 1 failure, 7 skipped

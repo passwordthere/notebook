@@ -1,3 +1,61 @@
+Docker
+核心
+    docker pull registry(docker.io)/repository(library)/image:tag(latest)
+    docker push ilikeating/sexy:tagname
+    docker tag  //rename
+    docker image ls //docker images
+    docker rmi
+    
+    docker build
+    docker commit   //base on running container
+    ------
+    dokcer run                        nginx
+                -d  //background
+                -p 127.0.0.2:8080:80
+                -p 127.0.0.2:8081:443
+                --rm
+                --name
+                -v "$PWD/html":/usr/share/nginx/html    //--volume
+
+    docker create
+    docker start    
+    docker stop     
+    docker pause    
+    docker rm
+    
+    docker attach
+    docker exec     //单独启动一个 sh 进程
+    docker nsenter
+
+    docker import file.tar image:tag
+    docker export name > file.tar
+    ------
+    FROM
+    RUN
+    ADD
+    COPY
+    USER
+    ENTRYPOINT
+    CMD
+    ENV
+    ARG
+    EXPOSE
+    WORKDIR
+
+    created     //Created
+    running     //Up 2 seconds
+    stopped     //Exited (0) 2 seconds ago
+    opaused     //Up 7 seconds (Paused)
+    deleted
+编排
+集群
+
+
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
+
     docker login
 image
     docker image ls
@@ -41,3 +99,6 @@ Dockerfile
         EXPOSE 3000
         CMD node demos/01.js //RUN(N)执行结果亦打包，CMD(1)容器启动后执行
     docker image build -t <name:tag> .
+
+
+
