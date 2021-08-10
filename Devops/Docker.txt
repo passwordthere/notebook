@@ -15,6 +15,7 @@ Docker
                 -p 127.0.0.2:8081:443
                 --rm
                 --name
+                -w  //WORKDIR
                 -v "$PWD/html":/usr/share/nginx/html    //--volume
 
     docker create
@@ -24,11 +25,19 @@ Docker
     docker rm
     
     docker attach
-    docker exec     //单独启动一个 sh 进程
+    docker exec     //会在运行中的容器执行一个新进程
     docker nsenter
 
-    docker import file.tar image:tag
+    docker inspect <both>
+    docker history <image>
+
+    docker save     //all read-only layer and their meta data
+    docker import file.tar image:tag    //plus write layer
     docker export name > file.tar
+
+    docker network ls   //查看网络服务
+    docker network create -d bridge my-bridge   //创建一个自定义网桥
+    docker network connect my-bridge[网桥名称] web[容器名称]    //容器绑定网桥
     ------
     FROM
     RUN

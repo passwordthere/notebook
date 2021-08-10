@@ -47,6 +47,29 @@ echo -n '' > /var/log/sa/sar20210725
 mv /tmp/sar20210725.bz2 /var/log/
 service syslog start 
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+gmp_info;uptime;virsh list --all;virtualip list;ps auxww|grep [s]ap;df -h
 
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#heartbeat
 
+df -h /var 
+ps aux | grep [j]oschyd
+gmp_info
+
+service joschyd start-nodelay 
+service joschyd status
+
+tail /var/log/mail 
+tail /var/log/mail | grep denied
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#ldap
+
+for i in $(dig ldapr-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short | grep -v ";") ; do echo "=== $(dig +short -x $i | grep -v ";" | egrep -i "ldap...-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
+
+for i in $(dig ldap-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short) ; do echo "=== $(dig +short -x $i | egrep -i "ldap..-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
+
+for i in $(dig ldapmaster-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short) ; do echo "=== $(dig +short -x $i | egrep -i "ldap...-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 

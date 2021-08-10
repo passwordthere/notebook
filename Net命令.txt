@@ -1,0 +1,21 @@
+DNS 
+    host -a 
+         -l 列出该域所管理的所有主机
+    nslookup
+             <url> 正解
+             <ip> 反解
+    dig 未来的主流，请爱用它
+        -t a 
+        -t aaaa //ipv6
+        -t soa 
+        -t mx //mail server
+        -t ns 
+        -t cname
+领域管理者
+    whois <domainname>
+    
+
+
+
+bind
+/var/log/messages

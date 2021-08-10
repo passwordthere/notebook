@@ -13,3 +13,15 @@ Downtime（PJ都是有文档的）
         5 Update external ticket（Payroll > SF Reroute）
         6 Update GMP inventory//Device Management > Live Update... 
         7 Check and fix each SID object in GMP //don't need to do, DR has no SID(C4Z_DR)
+
+
+
+PJ01154 Payroll
+    VIP Movement
+        1 check if db is in use:lsof /sapdb/C0N/sapdata1
+        2 (option)check pool in case of making mistake when rename vips in CQA
+        3 rename in CQA
+        4 migrate systems: server > move instance (list in SNOW right column)
+        5 check if up via mind(with full hostname)
+        6 update external ticket
+        7 update GMP inventory: network > security groups: resync single virtual machine
