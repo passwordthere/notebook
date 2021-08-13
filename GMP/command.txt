@@ -30,7 +30,7 @@ wget -O /tmp/mcafee-install.sh http://repo:50000/repo/tools/McAfee/mcafee-instal
 systemctl enable ma ; /usr/lib/systemd/systemd-sysv-install enable ma
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#var
+#/var
 
 df -hP /var && ls -lahS $(find /var/ -xdev -type f -size +10000k)
 df -hP /var/log && ls -lahS $(find /var/log -xdev -type f -size +20000k)
@@ -42,10 +42,18 @@ logrotate -f /etc/logrotate.conf
 logrotate -f /etc/logrotate.d/syslog
 
 service syslog stop
-bzip2 -c /var/log/sa/sar20210725 > /tmp/sar20210725.bz2
-echo -n '' > /var/log/sa/sar20210725
-mv /tmp/sar20210725.bz2 /var/log/
+bzip2 -c /var/log/message > /tmp/message_`date +%Y%m%d`.bz2
+echo -n '' > /var/log/message
+mv /tmp/message_`date +%Y%m%d`.bz2 /var/log/
 service syslog start 
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#/tmp
+
+df -h /tmp
+df -hi /tmp
+
+df -h /tmp && find /tmp/ -xdev -type f -size +20000k -exec ls -lah {} \;
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -58,6 +66,13 @@ gmp_info;uptime;virsh list --all;virtualip list;ps auxww|grep [s]ap;df -h
 df -h /var 
 ps aux | grep [j]oschyd
 gmp_info
+
+service joschyd stop 
+ps aux | grep [j]oschyd
+
+kill <joschydPID>
+
+kill -9 <joschydPID> 
 
 service joschyd start-nodelay 
 service joschyd status
@@ -73,3 +88,20 @@ for i in $(dig ldapr-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short |
 for i in $(dig ldap-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short) ; do echo "=== $(dig +short -x $i | egrep -i "ldap..-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
 
 for i in $(dig ldapmaster-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short) ; do echo "=== $(dig +short -x $i | egrep -i "ldap...-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#ldapchk-saas 
+
+/opt/imal/bin/ldapchk.pl -v -syncstate
+
+rcldap start
+
+On SLES12: systemctl restart slapd
+---
+ldapsearch -x -h localhost cn=c5327170
+
+ps -ef | grep slapd
+
+kill -9 `pgrep slapd`;rcldap start;
+
+On SLES12:# kill -9 `pgrep slapd`; systemctl restart slapd

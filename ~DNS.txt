@@ -1,0 +1,179 @@
+SOA：就是开始验证(Start of Authority) 的缩写，相关资料本章后续小节说明；
+NS：就是名称伺服器(NameServer) 的缩写，后面记录的资料是DNS 伺服器的意思；
+A：就是位址(Address) 的缩写，后面记录的是IP 的对应(最重要)；
+PTR：就是指向(PoinTeR) 的缩写，后面记录的资料就是反解到主机名称啰！
+
+/etc/hosts ：这个是最早的hostname 对应IP 的档案；
+/etc/resolv.conf ：这个重要！就是ISP 的DNS 伺服器IP 记录处；
+/etc/nsswitch.conf：这个档案则是在『决定』先要使用/etc/hosts 还是/etc/resolv.conf 的设定！
+
+现在你知道一个正解或一个反解就可以称为一个zone 了！那么有没有那个zone 是特别重要的呢？有的，那就是. 啊！从 所以就得要有记录. 在哪里的记录zone 才行啊！这个记录. 的zone 的类型，就被我们称为hint 类型！这几乎是每个DNS 伺服器都得要知道的zone 喔！
+
+需要正反解成对需求的大概仅有mail server 才需要吧！
+
+问题是，多久提出一次更新，如果该次更新时由于网路问题，所以没有查询到 master 的序号(亦即更新失败)，那隔多久会重新更新一次？这个与SOA 的标志有关，
+
+我的主机使用DHCP 取得IP ，很奇怪的，当我修改过/etc/resolv.conf 之后，隔不多久这个档案又会恢复成原本的样子，这是什么原因？该如何处理？
+答：
+因为使用DHCP 时，系统会主动的使用DHCP 伺服器传来的资料进行系统设定档的修订。因此，你必须告知系统，不要使用DHCP 传来的伺服器设定值。此时，你得要在/etc/sysconfig/network-scripts/ifcfg-eth0 等相关档案内，增加一行：『PEERDNS=no』，然后重新启动网路即可。
+
+---
+19.3.1 架设DNS 所需要的软体
+
+/etc/named.conf ：这就是我们的主设定档啦！
+/etc/sysconfig/named ：是否启动chroot 及额外的参数，就由这个档案控制；
+/var/named/ ：资料库档案预设放置在这个目录
+/var/run/named ：named 这支程式执行时预设放置pid-file 在此目录内。
+
+正解檔資源記錄 (resource record, RR) 格式
+[root@www ~]# dig www.ksu.edu.tw
+;; ANSWER SECTION:
+www.ksu.edu.tw.         2203    IN      A       120.114.100.101
+;; AUTHORITY SECTION:
+ksu.edu.tw.             911     IN      NS      dns1.ksu.edu.tw.
+只是 A 後面接 IP，而 NS 後面接主機名稱而已。我們可以將整個輸出的格式簡化成為如下的說明：
+[domain]   [ttl]          IN [[RR type]  [RR data]]
+[待查資料] [暫存時間(秒)] IN [[資源類型] [資源內容]]
+至於 ttl 就是 time to live 的縮寫，意思就是當這筆記錄被其他 DNS 伺服器查詢到後， 這個記錄會保持在對方 DNS 伺服器的快取中，保持多少秒鐘的意思。所以，當你反覆執行 dig www.ksu.edu.tw 之後，就會發現這個時間會減少！為什麼呢？因為在你的 DNS 快取中，這筆資料能夠保存的時間會開始倒數， 當這個數字歸零後，下次有人再重新搜尋這筆記錄時，你的 DNS 就會重新沿著 . (root) 開始重來搜尋一遍， 而不會從快取裡面捉取了 (因為快取內的資料會被捨棄)。
+# 常見的正解檔 RR 相關資訊
+[domain]    IN  [[RR type]  [RR data]]
+主機名稱.   IN  A           IPv4 的 IP 位址
+主機名稱.   IN  AAAA        IPv6 的 IP 位址
+領域名稱.   IN  NS          管理這個領域名稱的伺服器主機名字.
+領域名稱.   IN  SOA         管理這個領域名稱的七個重要參數(容後說明)
+領域名稱.   IN  MX          順序數字  接收郵件的伺服器主機名字
+主機別名.   IN  CNAME       實際代表這個主機別名的主機名字.
+[root@www ~]# dig [-t a] www.ksu.edu.tw
+SOA:Master hostname, email, Serial, Refresh, Retry:每 1800 秒 slave 會主動向 master 連線，但如果該次連線沒有成功，那接下來嘗試連線的時間會變成 900 秒。若後來有成功，則又會恢復到 1800 秒才再一次連線。, Expire:當連線一直失敗，每 900 秒嘗試到達 604800 秒後，崑山科大的 slave 將不再更新
+
+[root@www ~]# dig -x 120.114.100.101
+;; ANSWER SECTION:
+101.100.114.120.in-addr.arpa. 3600 IN   PTR     www.ksu.edu.tw.
+
+named.conf (主要設定檔)
+named.centos.vbird (主要的 centos.vbird 的正解檔)
+named.192.168.100 (主要的 192.168.100.0/24 的反解檔)
+named.ca (由 bind 軟體提供的 . 正解檔)
+
+options：規範 DNS 伺服器的使用權限 (可否查詢、forward 與否等)；
+zone：設定出 zone (domain name) 以及 zone file 的所在 (包含 master/slave/hint)；
+其他：設定 DNS 本機管理介面以及其相關的金鑰檔案 (key file)。(本章稍後進階應用再談)
+
+/etc/named.conf
+[root@www ~]# vim /etc/named.conf
+options {
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+        allow-query     { any; };
+        recursion yes;
+        allow-transfer  { none; };   // 不許別人進行 zone 轉移
+};
+
+zone "." IN {
+        type hint;
+        file "named.ca";
+};
+zone "centos.vbird" IN {            // 這個 zone 的名稱
+        type master;                // 是什麼類型
+        file "named.centos.vbird";  // 檔案放在哪裡
+};
+zone "100.168.192.in-addr.arpa" IN {
+        type master;
+        file "named.192.168.100";
+};
+---
+option: allow-transfer ( none; };
+是否允許來自 slave DNS 對我的整個領域資料進行傳送？這個設定值與 master/slave DNS 伺服器之間的資料庫傳送有關。除非你有 slave DNS 伺服器，否則這裡不要開放喔！因此這裡我們先設定為 none。
+zone: file	
+就是 zone file 的檔名啊！(注意 chroot 與否呦！)
+
+/var/named/named.centos.vbird
+[root@www ~]# vim /var/named/named.centos.vbird
+# 與整個領域相關性較高的設定包括 NS, A, MX, SOA 等標誌的設定處！
+$TTL    600
+@                       IN SOA   master.centos.vbird. vbird.www.centos.vbird. (
+                                 2011080401 3H 15M 1W 1D ) ; 與上面是同一行
+@                       IN NS    master.centos.vbird.  ; DNS 伺服器名稱
+master.centos.vbird.    IN A     192.168.100.254         ; DNS 伺服器 IP
+@                       IN MX 10 www.centos.vbird.     ; 領域名稱的郵件伺服器
+
+# 針對 192.168.100.254 這部主機的所有相關正解設定。
+www.centos.vbird.       IN A     192.168.100.254
+linux.centos.vbird.     IN CNAME www.centos.vbird.
+ftp.centos.vbird.       IN CNAME www.centos.vbird.
+forum.centos.vbird.     IN CNAME www.centos.vbird.
+
+# 其他幾部主機的主機名稱正解設定。
+slave.centos.vbird.       IN A    192.168.100.10
+clientlinux.centos.vbird. IN A    192.168.100.10
+workstation.centos.vbird. IN A    192.168.1.101
+winxp.centos.vbird.       IN A    192.168.100.20
+win7                      IN A    192.168.100.30  ; 這是簡化的寫法！
+---
+@	這個符號代表 zone 的意思！例如寫在 named.centos.vbird 中，@ 代表 centos.vbird.，如果寫在 named.192.168.100 檔案中，則 @ 代表 100.168.192.in-addr.arpa. 的意思 (參考 named.conf 內的 zone 設定)
+.	這個點 (.) 很重要！因為他代表一個完整主機名稱 (FQDN) 而不是僅有 hostname 而已。舉例來說，在 named.centos.vbird 當中寫 www.centos.vbird 則代表 FQDN 為 www.centos.vbird.@ ==> www.centos.vbird.centos.vbird. 喔！因此當然要寫成 www.centos.vbird. 才對！
+;	代表註解符號～似乎 # 也是註解～兩個符號都能使用
+老實說，初次設定 DNS 的朋友大概都會被那個小數點 (.) 玩死～其實你不要太緊張，只要記住：『 加上了 . 表示這是個完整的主機名稱 (FQDN)，亦即是 "hostname + domain name" 了， 如果沒有加上 . 的話，表示該名稱僅為 "hostname" 而已！因為我們這個設定檔的 zone 是 centos.vbird， 所以上表的最後一行，鳥哥只寫出主機名稱 (win7) ，因為沒有小數點結尾，因此完整的 FQDN 要加上 zone，所以主機名稱 win7 代表的是： win7.centos.vbird. 喔！
+
+/var/named/named.10.59.171
+[root@www ~]# vim /var/named/named.192.168.100
+$TTL    600
+@       IN SOA  master.centos.vbird. vbird.www.centos.vbird. (
+                2011080401 3H 15M 1W 1D )
+@       IN NS   master.centos.vbird.
+254     IN PTR  master.centos.vbird.  ; 將原本的 A 改成 PTR 的標誌而已
+
+254     IN PTR  www.centos.vbird.     ; 這些是特定的 IP 對應
+10      IN PTR  slave.centos.vbird.
+20      IN PTR  winxp.centos.vbird.
+30      IN PTR  win7.centos.vbird.
+
+101     IN PTR  dhcp101.centos.vbird.  ; 可能針對 DHCP (第十二章) 的 IP 設定
+102     IN PTR  dhcp102.centos.vbird.
+....(中間省略)....
+200     IN PTR  dhcp200.centos.vbird.
+---
+因為我們的 zone 是 100.168.192.in-addr.arpa. 這一個，因此 IP 的全名部分已經含有 192.168.100 了， 所以在上表當中的最左邊，數值只需要存在最後一個 IP 即可。因此 254 就代表 192.168.100.254 囉！ 此外，為了擔心 DHCP 自動分配的 IP 沒有對應的主機名稱，所以這裡也附掛了 192.168.100.{101~200} 的主機名稱對應喔！
+
+[root@localhost ~]# named-checkconf   #检查主配置文件语法
+[root@localhost ~]# named-checkzone eample.com /var/named/example.com.zone 
+[root@www ~]# /etc/init.d/named start  <==也可能是需要 restart 喔
+[root@www ~]# chkconfig named on
+[root@www ~]# tail -n 30 /var/log/messages | grep named
+[root@www ~]# vim /usr/local/virus/iptables/iptables.rule
+# 找到如下兩行，將註解拿掉即可！
+iptables -A INPUT -p UDP -i $EXTIF --dport  53  --sport 1024:65534 -j ACCEPT
+iptables -A INPUT -p TCP -i $EXTIF --dport  53  --sport 1024:65534 -j ACCEPT
+[root@www ~]# /usr/local/virus/iptables/iptables.rule
+
+
+
+
+
+
+
+作業系統與IP	            主機名稱與       RR 標誌	 說明
+Linux (10.0.1.2)        master.centos.vbird (NS, A)
+                        www.centos.vbird (A)
+                        linux.centos.vbird (CNAME)
+                        ftp.centos.vbird (CNAME)
+                        forum.centos.vbird (CNAME)
+                        www.centos.vbird (MX)	       DNS 設置是使用 master.centos.vbird 這個 DNS 伺服器名稱。至於這部主機的另一個主要名稱是 www.centos.vbird，其他的都是 CNAME，這樣未來比較好修改。同時給予一個 MX 的標誌給主要主機名喔
+
+Linux (10.0.1.3)	    slave.centos.vbird (NS, A)
+                        client.centos.vbird(A)	    未來作為 slave DNS 的接班人～
+WinXP (10.0.1.99)	    work.centos.vbird (A)	一部經常用來工作的工作機
+WinXP (10.0.1.20)	    winxp.centos.vbird (A)	        一部用來測試的 Windows XP
+Win7 (10.0.1.30)	    win7.centos.vbird (A)	        一部用來測試的 Windows 7
+
+
+
+
+
+
+
+
+
+

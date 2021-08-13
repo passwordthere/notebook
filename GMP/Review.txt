@@ -1,0 +1,21 @@
+baremetal
+    reserved for LoB
+Hypervisor
+    used as Hypervisor
+
+
+GMP:
+    forward
+        - hello
+    handover
+SNOW:
+    save
+    reroute
+    provider
+
+    
+
+ssh inspec01-nsq
+
+payroll system setup
+如果只有一套系统，不需要adapt mount
