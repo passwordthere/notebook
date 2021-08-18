@@ -13,9 +13,18 @@ SNOW:
     reroute
     provider
 
-    
+Upload log:
+    both Chassis and UCSM logs for ucs
+
+Hardware Repair:
+    Comment: LACP active
+
+
+both SCTASK & RITM need to update
+
 
 ssh inspec01-nsq
 
 payroll system setup
 如果只有一套系统，不需要adapt mount
+

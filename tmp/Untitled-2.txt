@@ -1,0 +1,56 @@
+/etc/hosts ：这个是最早的hostname 对应IP 的档案；
+/etc/resolv.conf ：这个重要！就是ISP 的DNS 伺服器IP 记录处；
+/etc/nsswitch.conf：这个档案则是在『决定』先要使用/etc/hosts 还是/etc/resolv.conf 的设定！
+
+
+
+
+
+
+
+DNS的查询顺序
+　　　1、本地hosts文件
+　　　2、本地DNS缓存
+　　　3、本地DNS服务器
+　　　4、发起迭代查询
+DNS服务器类型
+　　1、主DNS服务器
+　　　　为客户端提供域名解析的主要区域，主DNS服务器宕机，会启用从DNS服务器提供服务。
+　　2、从DNS服务器
+　　　　主服务器DNS长期无应答，从服务器也会停止提供服务。
+　　　　主从区域之间的同步采用周期性检查+通知的机制，从服务器周期性的检查主服务器上的记录情况，一旦发现修改就会同步，另 外主服务器上如果有数据被修改了，会立即通知从服务器更新记录。
+　　3、缓存服务器
+　　　　服务器本身不提供解析区域，只提供非权威应答。
+　　4、转发服务器
+　　　　当DNS服务器的解析区域（包括缓存）中无法为当前的请求提供权威应答时，将请求转发至其它的DNS服务器，此时本地DNS服务器就是转发服务器。
+
+
+
+
+
+/usr/libexec/setup-named-chroot.sh /var/named/chroot on
+systemctl stop named
+systemctl disable named
+systemctl start named-chroot
+systemctl enable named-chroot
+
+cp -r /usr/share/doc/bind-9.11.4/sample/etc/* /var/named/chroot/etc/
+cp -r /usr/share/doc/bind-9.11.4/sample/var/* /var/named/chroot/var/
+
+
+
+
+/usr/libexec/setup-named-chroot.sh /var/named/chroot on
+systemctl stop named
+systemctl disable named
+systemctl start named-chroot
+systemctl enable named-chroot
+
+
+
+
+
+
+
+
+
