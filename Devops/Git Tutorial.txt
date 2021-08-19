@@ -1,0 +1,44 @@
+D1  配置Git
+    git config --global user.name ""
+    git config --global user.email ""
+    如果你忘记了这一步，在你首次提交时，Git将提示你提供这些信息。
+D2  忽略文件
+    .gitignore
+        __pycache__/
+        *.pyc 
+D3  初始化仓库
+    git init 
+D4  检查状态
+    git status
+D5  加入仓库
+    git add .
+    git status
+D6  提交
+    git commit -m ""
+    git status
+D7  查看提交历史
+    git log
+    git log --pretty=oneline
+D8  第二次提交
+    git status
+    git commit -am ""
+    git status
+    git log --pretty=oneline
+D9  撤销修改
+    git status  //(modified, yet not commit)
+    git checkout .
+    git status
+D10 检出以前的提交
+    git log --pretty=oneline
+    git checkout be017b //detached HEAD状态
+    git checkout master
+
+    git status
+    git log --pretty=oneline
+    git reset --hard be017b
+    git status
+    git log --pretty=oneline
+D11 删除仓库
+    git status
+    rm -rf .git
+    git status
