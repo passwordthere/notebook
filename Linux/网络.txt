@@ -1,0 +1,155 @@
+node & hub, server, workstation & client, NIC, lo(网络界面 loopback), topology, route & gateway
+
+全部的LAN 串在一块就是一个大型的WAN 啰！
+区域网络 LAN, 可以使用较为昂贵的连线材料， 例如光纤或是高品质网路线(CAT 6) 等。网路速度较快，连线品质较佳且可靠，因此可应用于科学运算的丛集式系统、 分散式系统、云端负荷分担系统等。
+广域网络 WAN, 由于线材品质较差，因此网路速度较慢且可靠性较低一些，网路应用方面大多为类似email, FTP, WWW 浏览等功能。
+都会网络 MAN, 
+
+OSI     TCP/IP
+应用层   应用层
+表现层   传输层
+会话层   网络层 IP, ICMP
+传输层   链路层 LAN:Ethernet, Token Ring    WAN:Modem, ISDN, ATM, Serial    ARP
+网络层
+链路层
+物理层
+
+CSMA/CD:
+    监听媒体使用情况(Carrier Sense)：A 主机要发送网路封包前，需要先对网路媒体进行监听，确认没有人在使用后， 才能够发送出讯框；
+    多点传输(Multiple Access)：A 主机所送出的资料会被集线器复制一份，然后传送给所有连接到此集线器的主机！也就是说， A 所送出的资料， B, C, D 三部电脑都能够接收的到！但由于目标是D 主机，因此B 与C 会将此讯框资料丢弃，而D 则会抓下来处理；
+    碰撞侦测(Collision Detection)：该讯框资料附有检测能力，若其他主机例如B 电脑也刚好在同时间发送讯框资料时， 那么A 与B 送出的资料碰撞在一块(出车祸) ，此时这些讯框就是损毁，那么A 与B 就会各自随机等待一个时间， 然后重新透过第一步再传送一次该讯框资料。
+
+抵挡网卡仅能在区域网路内进行而已，因为MAC 不能跨router 嘛！
+
+IP封包:
+    ---------------------------------------------------------------------------------
+    |   Version |    IHL    |   Type of Service |   Total Length                    |
+    ---------------------------------------------------------------------------------
+    |   Identification                          |   Flags   |   Fragmentation Offset|
+    ---------------------------------------------------------------------------------
+    |   Time To Live        |   Protocol       |   Header Checksum                  |
+    ---------------------------------------------------------------------------------
+    |   Source Address                                                              |
+    ---------------------------------------------------------------------------------
+    |   Destination Address                                                         |
+    ---------------------------------------------------------------------------------
+    |   Options                                 |   Padding                         |
+    ---------------------------------------------------------------------------------
+    |   Data                                                                        |
+    ---------------------------------------------------------------------------------
+    IHL: IP表头的长度（单位：字组）
+    Protocol Number:    1	ICMP (Internet Control Message Protocol)
+                        2	IGMP (Internet Group Management Protocol)
+                        3	GGP (Gateway-to-Gateway Protocol)
+                        4	IP (IP in IP encapsulation)
+                        6	TCP (Transmission Control Protocol)
+                        8	EGP (Exterior Gateway Protocol)
+                        17	UDP (User Datagram Protocol)
+
+Class A：10.0.0.0 - 10.255.255.255
+Class B：172.16.0.0 - 172.31.255.255
+Class C：192.168.0.0 - 192.168.255.255
+
+route [-n 以IP显示]
+Flags：共有多個旗標可以來表示該網域或主機代表的意義：
+    U：代表該路由可用；
+    G：代表該網域需要經由 Gateway 來幫忙轉遞；使用外部装置作为Gateway
+    H：代表該行路由為一部主機，而非一整個網域；
+
+arp [-n, -d 将hostname的mac由ARP table中删掉, -s 将某个IP或hostname的MAC加到ARP table中]
+    arp -s 192.168.1.100  01:00:2D:23:A1:0E
+
+ICMP 的全名是『 Internet Control Message Protocol, 網際網路訊息控制協定 』
+基本上，ICMP 是一個錯誤偵測與回報的機制，最大的功能就是可以確保我們網路的連線狀態與連線的正確性！
+常見的幾個 ICMP 的類別： 
+    0	Echo Reply (代表一個回應信息)
+    3	Destination Unreachable (表示目的地不可到達)
+    4	Source Quench (當 router 的負載過高時，此類別碼可用來讓發送端停止發送訊息)
+    5	Redirect (用來重新導向路由路徑的資訊)
+    8	Echo Request (請求回應訊息)
+    11	Time Exceeded for a Datagram (當資料封包在某些路由傳送的現象中造成逾時狀態，此類別碼可告知來源該封包已被忽略的訊息)
+    12	Parameter Problem on a Datagram (當一個 ICMP 封包重複之前的錯誤時，會回覆來源主機關於參數錯誤的訊息)
+    13	Timestamp Request (要求對方送出時間訊息，用以計算路由時間的差異，以滿足同步性協定的要求)
+    14	Timestamp Reply (此訊息純粹是回應 Timestamp Request 用的)
+    15	Information Request (在 RARP 協定應用之前，此訊息是用來在開機時取得網路信息)
+    16	Information Reply (用以回應 Infromation Request 訊息)
+    17	Address Mask Request (這訊息是用來查詢子網路 mask 設定信息)
+    18	Address Mask Reply (回應子網路 mask 查詢訊息的)
+
+特權埠口 (Privileged Ports):
+    20	FTP-data，檔案傳輸協定所使用的主動資料傳輸埠口
+    21	FTP，檔案傳輸協定的命令通道
+    22	SSH，較為安全的遠端連線伺服器
+    23	Telnet，早期的遠端連線伺服器軟體
+    25	SMTP，簡單郵件傳遞協定，用在作為 mail server 的埠口
+    53	DNS，用在作為名稱解析的領域名稱伺服器
+    80	WWW，這個重要吧！就是全球資訊網伺服器
+    110	POP3，郵件收信協定，辦公室用的收信軟體都是透過他
+    443	https，有安全加密機制的WWW伺服器
+
+由於網路是雙向的，要達成連線的話得要伺服器與用戶端均提供了 IP 與埠口才行。 因此，我們常常將這個成對的資料稱之為 Socket Pair 了！
+    來源 IP + 來源埠口 (Source Address + Source Port)
+    目的 IP + 目的埠口 (Destination Address + Destination Port)
+
+三次握手
+    1. 鳥哥說：A同學你在不在？
+    2. A同學說：我在！那鳥哥你在不在？
+    3. 鳥哥說：我也在
+
+一組可以連上 Internet 的必要網路參數
+    IP
+    Netmask
+    Network
+    Broadcast
+    Gateway
+    DNS
+
+在 Linux 裡面的各項裝置幾乎都是以檔案名稱來取代的，例如 /dev/hda 代表 IDE1 介面的第一個 master 硬碟等等。 不過，網路卡的代號 (Network Interface Card, NIC) 卻是以模組對應裝置名稱來代替的， 而預設的網路卡代號為 eth0 ，第二張網路卡則為 eth1
+
+模組 (驅動程式)
+
+dmesg 來查詢核心偵測硬體產生的資訊
+lspci 來查詢相關的設備晶片資料
+lsmod 核心有順利的載入了嗎？
+modinfo 模組的相關資訊又是如何呢？
+
+[root@www ~]# vim /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE="eth0"               <==網路卡代號，必須要 ifcfg-eth0 相對應
+HWADDR="08:00:27:71:85:BD"  <==就是網路卡位址，若只有一張網卡，可省略此項目
+NM_CONTROLLED="no"          <==不要受到其他軟體的網路管理！
+ONBOOT="yes"                <==是否預設啟動此介面的意思
+BOOTPROTO=none              <==取得IP的方式，其實關鍵字只有dhcp，手動可輸入none
+IPADDR=192.168.1.100        <==就是 IP 啊
+NETMASK=255.255.255.0       <==就是子網路遮罩
+GATEWAY=192.168.1.254       <==就是預設路由
+# 重點是上面這幾個設定項目，底下的則可以省略的囉！
+NETWORK=192.168.1.0         <==就是該網段的第一個 IP，可省略
+BROADCAST=192.168.1.255     <==就是廣播位址囉，可省略
+MTU=1500                    <==就是最大傳輸單元的設定值，若不更改則可省略
+
+tcpdump [-AennqX] [-i 介面] [-w 儲存檔名] [-c 次數] [-r 檔案] [所欲擷取的封包資料格式]
+選項與參數：
+-A ：封包的內容以 ASCII 顯示，通常用來捉取 WWW 的網頁封包資料。
+-e ：使用資料連接層 (OSI 第二層) 的 MAC 封包資料來顯示；
+-nn：直接以 IP 及 port number 顯示，而非主機名與服務名稱
+-q ：僅列出較為簡短的封包資訊，每一行的內容比較精簡
+-X ：可以列出十六進位 (hex) 以及 ASCII 的封包內容，對於監聽封包內容很有用
+-i ：後面接要『監聽』的網路介面，例如 eth0, lo, ppp0 等等的介面；
+-w ：如果你要將監聽所得的封包資料儲存下來，用這個參數就對了！後面接檔名
+-r ：從後面接的檔案將封包資料讀出來。那個『檔案』是已經存在的檔案，
+     並且這個『檔案』是由 -w 所製作出來的。
+-c ：監聽的封包數，如果沒有這個參數， tcpdump 會持續不斷的監聽，
+     直到使用者輸入 [ctrl]-c 為止。
+所欲擷取的封包資料格式：我們可以專門針對某些通訊協定或者是 IP 來源進行封包擷取，
+     那就可以簡化輸出的結果，並取得最有用的資訊。常見的表示方法有：
+     'host foo', 'host 127.0.0.1' ：針對單部主機來進行封包擷取
+     'net 192.168' ：針對某個網域來進行封包的擷取；
+     'src host 127.0.0.1' 'dst net 192.168'：同時加上來源(src)或目標(dst)限制
+     'tcp port 21'：還可以針對通訊協定偵測，如 tcp, udp, arp, ether 等
+     還可以利用 and 與 or 來進行封包資料的整合顯示呢！
+tcpdump -i eth0 -nn port 21
+
+
+
+
+

@@ -1,0 +1,45 @@
+作業系統與IP	主機名稱與 RR 標誌	說明
+Linux (192.168.100.254)	master.centos.vbird (NS, A)
+www.centos.vbird (A)
+linux.centos.vbird (CNAME)
+ftp.centos.vbird (CNAME)
+forum.centos.vbird (CNAME)
+www.centos.vbird (MX)	DNS 設置是使用 master.centos.vbird 這個 DNS 伺服器名稱。至於這部主機的另一個主要名稱是 www.centos.vbird，其他的都是 CNAME，這樣未來比較好修改。同時給予一個 MX 的標誌給主要主機名喔
+Linux (192.168.100.10)	slave.centos.vbird (NS, A)
+clientlinux.centos.vbird(A)	未來作為 slave DNS 的接班人～
+WinXP (192.168.1.101)	workstation.centos.vbird (A)	一部經常用來工作的工作機
+WinXP (192.168.100.20)	winxp.centos.vbird (A)	一部用來測試的 Windows XP
+Win7 (192.168.100.30)	win7.centos.vbird (A)	一部用來測試的 Windows 7
+
+
+
+
+
+
+192.168.1.1         dhcp
+192.168.1.101       master
+192.168.1.102       slave
+192.168.1.103       ldapserver18
+192.168.1.104       ldapclient16
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

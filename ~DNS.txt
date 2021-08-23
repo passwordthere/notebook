@@ -1,3 +1,6 @@
+單純的 cache-only: 那就是不具有自己正反解 zone 的僅進行快取的 DNS 伺服器
+
+
 SOA：就是开始验证(Start of Authority) 的缩写，相关资料本章后续小节说明；
 NS：就是名称伺服器(NameServer) 的缩写，后面记录的资料是DNS 伺服器的意思；
 A：就是位址(Address) 的缩写，后面记录的是IP 的对应(最重要)；
@@ -154,19 +157,7 @@ iptables -A INPUT -p TCP -i $EXTIF --dport  53  --sport 1024:65534 -j ACCEPT
 
 
 
-作業系統與IP	            主機名稱與       RR 標誌	 說明
-Linux (10.0.1.2)        master.centos.vbird (NS, A)
-                        www.centos.vbird (A)
-                        linux.centos.vbird (CNAME)
-                        ftp.centos.vbird (CNAME)
-                        forum.centos.vbird (CNAME)
-                        www.centos.vbird (MX)	       DNS 設置是使用 master.centos.vbird 這個 DNS 伺服器名稱。至於這部主機的另一個主要名稱是 www.centos.vbird，其他的都是 CNAME，這樣未來比較好修改。同時給予一個 MX 的標誌給主要主機名喔
 
-Linux (10.0.1.3)	    slave.centos.vbird (NS, A)
-                        client.centos.vbird(A)	    未來作為 slave DNS 的接班人～
-WinXP (10.0.1.99)	    work.centos.vbird (A)	一部經常用來工作的工作機
-WinXP (10.0.1.20)	    winxp.centos.vbird (A)	        一部用來測試的 Windows XP
-Win7 (10.0.1.30)	    win7.centos.vbird (A)	        一部用來測試的 Windows 7
 
 
 

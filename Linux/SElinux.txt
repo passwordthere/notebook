@@ -1,0 +1,35 @@
+Secure Enhanced Linux，安全强化的Linux 模组！重点是在细部的权限设定，而不是防火墙的功能。
+
+getenforce
+setenforce 0/1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
