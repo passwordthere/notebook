@@ -21,7 +21,7 @@ Win7 (192.168.100.30)	win7.centos.vbird (A)	一部用來測試的 Windows 7
 192.168.1.102       slave
 192.168.1.103       ldapserver18
 192.168.1.104       ldapclient16
-
+192.168.1.110       ansible
 
 
 

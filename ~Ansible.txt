@@ -1,0 +1,19 @@
+yum install epel-release
+yum install python-pip python-devel git
+yum install ansible
+or
+pip install ansible
+
+vim /etc/ansible/hosts
+[Webservers]
+192.168.1.197
+192.168.1.198
+192.168.1.199
+
+ssh-keygen -t rsa -b 4096 -C "root@192.168.1.110"
+
+ssh-copy-id root@192.168.1.197
+
+ansible all -m ping
+ansible webservers -m command -a "uname -a"
+
