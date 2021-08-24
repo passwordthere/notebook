@@ -29,6 +29,7 @@ rm -rf /opt/McAfee/ /opt/isec/ /var/McAfee /etc/ma.d/
 wget -O /tmp/mcafee-install.sh http://repo:50000/repo/tools/McAfee/mcafee-install.sh ; sh /tmp/mcafee-install.sh ; rm /tmp/mcafee-install.sh 
 systemctl enable ma ; /usr/lib/systemd/systemd-sysv-install enable ma
 
+cp /etc/fstab /etc/fstab.bak
 sed -i 's/timeo=600,actimeo=600/timeo=600/g; s/timeo=600,actimeo=1/timeo=600/g; s/rsize=65536,wsize=65536//g' /etc/fstab
 umount -a -t nfs && mount -a
 

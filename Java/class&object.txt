@@ -1,0 +1,163 @@
+Java作为一种面向对象语言。支持以下基本概念：
+    多态
+    继承
+    封装
+    抽象
+    类
+    对象
+    实例
+    方法
+    重载
+
+一个类可以包含以下类型变量：
+    局部变量：在方法、构造方法或者语句块中定义的变量被称为局部变量。变量声明和初始化都是在方法中，方法结束后，变量就会自动销毁。
+    成员变量：成员变量是定义在类中，方法体之外的变量。这种变量在创建对象的时候实例化。成员变量可以被类中方法、构造方法和特定类的语句块访问。
+    类变量：类变量也声明在类中，方法体之外，但必须声明为 static 类型。
+
+创建对象
+对象是根据类创建的。在Java中，使用关键字 new 来创建一个新的对象。创建对象需要以下三步：
+    声明：声明一个对象，包括对象名称和对象类型。
+    实例化：使用关键字 new 来创建一个对象。
+    初始化：使用 new 创建对象时，会调用构造方法初始化对象。
+
+/* 实例化对象 */
+Object referenceVariable = new Constructor();
+
+包
+包主要用来对类和接口进行分类。当开发 Java 程序时，可能编写成百上千的类，因此很有必要对类和接口进行分类。
+
+import
+在 Java 中，如果给出一个完整的限定名，包括包名、类名，那么 Java 编译器就可以很容易地定位到源代码或者类。import 语句就是用来提供一个合理的路径，使得编译器可以找到某个类。
+例如，下面的命令行将会命令编译器载入 java_installation/java/io 路径下的所有类
+import java.io.*;
+
+-------------------------------------------
+
+内部类
+class OuterClass {   // 外部类
+    // ...
+    class NestedClass { // 嵌套类，或称为内部类
+        // ...
+    }
+}
+
+嵌套类有两种类型：
+    非静态内部类: 非静态内部类是一个类中嵌套着另外一个类。 它有访问外部类成员的权限， 通常被称为内部类。
+class OuterClass {
+  int x = 10;
+
+  class InnerClass {
+    int y = 5;
+  }
+}
+
+public class MyMainClass {
+  public static void main(String[] args) {
+    OuterClass myOuter = new OuterClass();
+    OuterClass.InnerClass myInner = myOuter.new InnerClass();
+    System.out.println(myInner.y + myOuter.x);
+  }
+}
+    静态内部类: 静态内部类可以使用 static 关键字定义，静态内部类我们不需要创建外部类来访问，可以直接访问它。注意：静态内部类无法访问外部类的成员。
+class OuterClass {
+  int x = 10;
+
+  static class InnerClass {
+    int y = 5;
+  }
+}
+
+public class MyMainClass {
+  public static void main(String[] args) {
+    OuterClass.InnerClass myInner = new OuterClass.InnerClass();
+    System.out.println(myInner.y);
+  }
+}
+
+>>>
+从内部类访问外部类成员
+内部类一个高级的用法就是可以访问外部类的属性和方法：
+
+实例
+class OuterClass {
+  int x = 10;
+
+  class InnerClass {
+    public int myInnerMethod() {
+      return x;
+    }
+  }
+}
+
+public class MyMainClass {
+  public static void main(String[] args) {
+    OuterClass myOuter = new OuterClass();
+    OuterClass.InnerClass myInner = myOuter.new InnerClass();
+    System.out.println(myInner.myInnerMethod());
+  }
+}
+
+-------------------------------------------------
+
+匿名类
+class outerClass {
+
+    // 定义一个匿名类
+    object1 = new Type(parameterList) {
+         // 匿名类代码
+    };
+}
+以上的代码创建了一个匿名类对象 object1，匿名类是表达式形式定义的，所以末尾以分号 ; 来结束。
+匿名类通常继承一个父类或实现一个接口。
+
+匿名类继承一个父类
+class Polygon {
+   public void display() {
+      System.out.println("在 Polygon 类内部");
+   }
+}
+
+class AnonymousDemo {
+   public void createClass() {
+
+      // 创建的匿名类继承了 Polygon 类
+      Polygon p1 = new Polygon() {
+         public void display() {
+            System.out.println("在匿名类内部。");
+         }
+      };
+      p1.display();
+   }
+}
+
+class Main {
+   public static void main(String[] args) {
+       AnonymousDemo an = new AnonymousDemo();
+       an.createClass();
+   }
+}
+
+匿名类实现一个接口
+interface Polygon {
+   public void display();
+}
+
+class AnonymousDemo {
+   public void createClass() {
+
+      // 匿名类实现一个接口
+      Polygon p1 = new Polygon() {
+         public void display() {
+            System.out.println("在匿名类内部。");
+         }
+      };
+      p1.display();
+   }
+}
+
+class Main {
+   public static void main(String[] args) {
+      AnonymousDemo an = new AnonymousDemo();
+      an.createClass();
+   }
+}
