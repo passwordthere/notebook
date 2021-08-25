@@ -14,13 +14,6 @@ Xu, Murphy	Please follow the template to provide the complete details of the ser
 
 gmp_info;uptime;virsh list --all;virtualip list;ps auxww|grep [s]ap;df -h
 
-sed -i '/vol[1-3]_/s/,rsize=32768//g' /etc/fstab
-sed -i '/vol[1-3]_/s/,rsize=65536//g' /etc/fstab
-sed -i '/vol[1-3]_/s/,wsize=32768//g' /etc/fstab
-sed -i '/vol[1-3]_/s/,wsize=65536//g' /etc/fstab
-sed -i '/vol[1-3]_/s/,actimeo=1//g' /etc/fstab
-sed -i '/vol[1-3]_/s/,actimeo=600//g' /etc/fstab
-
 chgrp -v sapsys /usr/sap/sapservices && chmod -v 0755 /usr/sap/sapservices
 
 mount -o remount,exec /tmp

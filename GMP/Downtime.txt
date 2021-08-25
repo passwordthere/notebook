@@ -1,3 +1,49 @@
+- Dispach
+
+- Search SID
+
+- Check if in use
+
+- Rename VIPs
+https://gmp.wdf.sap.corp/cgi-bin/objects.fpl/CQA/query/?query=DnsHosts.with(hostname%20ilike%22va%25C7O%25%22)%20%2B%20DnsHosts.with(ident%20ilike%22va%25<SID2>%25%22)%20%2BDnsHosts.with(hostname%20ilike%22va%25<SID3>%25%22)%20&attributes=ident&attributes=hostname&attributes=ip&attributes=network&attributes=objectId&auto_start=1
+
+- Servers -> Move Instance
+CSV from the external ticket
+
+- Verify VIPs via Mind
+https://gmp.wdf.sap.corp/cgi-bin/objects.pl/CQA/query/?query=VirtualMachines.with(comment%20like%20%22%25for_C7O%25%22)%2BVirtualMachines.with(comment%20like%20%22%25for_<SID2>%25%22)%2BVirtualMachines.with(comment%20like%20%22%25for_<SID3>%25%22)&attributes=hostname&attributes=state&attributes=comment&attributes=pool&attributes=pool.resourcePools&attributes=core&attributes=memory&attributes=instances&attributes=databases&attributes=ips&auto_start=1
+√ EU-DP acknowledgement
+
+gmp_info
+df -h | egrep vol[1-3]_[A-Z]
+pdnsd-ctl empty-cache
+
+- Update external ticket 
+Hello colleagues,
+
+movement is done from OS-side.
+
+Please start your applications. Once all is fine from your side please revert this ticket back so we can decommission the old servers.
+
+Create a second ticket for backup-configuration if needed. Create a third ticket for LVM-configuration if needed.
+
+Regards
+Murphy
+Service Area: Compute & Infrastructure Applications | Service: 0000000185 (SERVER_XEN_SAP_CLOUD) | Processing Queue: ITI INFRA OPS BIT - Infrastructure Operations - BIT
+
+- Update GMP inventory 
+Open each target VM in device management and trigger a Live update //Device Management of each
+
+Trigger a SG Resync on all target VMs //Network -> Security Groups: resync single Virtual Machine
+UUID FC0464EA056711ECB9E08A3B11F86283
+UUID D97A499E056711ECAF226B49D38BC7CC
+UUID AD563544056711EC823AC9D384870929
+
+Check and fix each SID object in GMP //Compare with search SID
+C7O 	Prod-NSQ-Payroll05-legacy 	usnsq1npchs02-sc01fi0257.byd.sap.corp
+
+>>>>>>>>>>>>>
+
 Downtime（PJ都是有文档的）
 
 7/28/2021
