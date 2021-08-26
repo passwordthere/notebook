@@ -1,0 +1,19 @@
+---Payroll---SystemSetupSLES12---
+
+如果Payroll提供 Hypervisor ，SG eable 是 Resource Pool 里的 ASF enable ，移 Pool 装系统之后要设为 Live 状态才能被 Self Service 检测到。
+
+Export vol1 of production system to 2 development systems 时（ Self Service -> Storage -> Volume: exports ）， Permission 默认， qtree 选 / ， Host 为测试系统的机器，有了 Host 则无需 Network 。
+
+Filer 是 Storage 。
+
+vfiler 在 Volume 中。（ 如 ryd1gmp150vipay0054:/vol1_FRC ）
+
+用 Mind 时，只需贴链接，无需贴 UUID 和结果。
+
+Inspec 中，DB DR crontab 问题，如果没有 DR 系统，则生产系统也不需要 crontab ，所以忽略 "check-instance-db-crontab-0.1: Instance Check: DB DR crontab (2 failed)" 。
+
+最后一步 Update external tikcet 中，不需要 new 。
+
+接到 External ticket 要做完 RITM 里面的原始需求。
+
+---

@@ -26,6 +26,9 @@ cp /etc/fstab /etc/fstab.bak
 sed -i 's/timeo=600,actimeo=600/timeo=600/g; s/timeo=600,actimeo=1/timeo=600/g; s/rsize=65536,wsize=65536//g' /etc/fstab
 umount -a -t nfs && mount -a
 
+sed -i 's/timeo=600,actimeo=600/timeo=600/g; s/timeo=600,actimeo=1/timeo=600/g; s/rsize=65536,wsize=65536//g' /etc/fstab
+umount -a -t nfs && mount -a
+
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #/var
 

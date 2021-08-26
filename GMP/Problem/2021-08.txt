@@ -1,3 +1,6 @@
 1 ASF Enabled in Resource Pool//(Security Group), what does it mean?
+软防火墙策略，限制IP出入。
 
-2 
+2 System Setup 中 VM Pool ：DMZ 和 LDAP 区别
+
+3 

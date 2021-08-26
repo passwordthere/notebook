@@ -1,0 +1,31 @@
+1 Support Matrix 
+
+2 Procedure 
+    2.1 Possibility to move 
+        Product/Usage of the HW-Pools
+        /Level2/XProducts.C4C /ByD: A move from or to numbered building blocks (ie BB017) is forbidden without explicit approval from the LoB, moving to SC or DMZ pools is allowed (ie: PROD-SHA3-BYD-BB052 -> Prod-SHA3-BYD-DMZ-WD) 
+        IBP servers are being reused, please check in GMP Change Management if server state "Re-Use" was used or the approval in the ticket 
+        A move from one Datacenter to an other is forbidden 
+        In case of outages or emergency you have to look for a spare Server. If no one is available then you can use reserved Server, use the following CQA to find spare in the landscape: 
+    2.2 Check that the machine is not in use 
+    2.3 Before a server is used, a hardware check is necessary 
+    2.4 Firmware updates 
+    2.5 Rediscover (Rack Server only) 
+    2.6 Install OS 
+        2.6.1 Cisco rack servers only - driver update after OS installation 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
