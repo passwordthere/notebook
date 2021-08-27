@@ -92,3 +92,26 @@ ci = commit
 [core]
 
 editor = vim
+
+>>>>>>>>
+
+git init
+git add .
+git checkout -b master
+git commit -m "first commit"
+
+git config --global user.email "you@example.com"                                                                                           
+git config --global user.name "Your Name"
+
+git remote add origin https://github.com/farhanayub/GitHub.git
+git push origin master
+
+rm -rf .git/
+
+---
+
+git init
+git add .
+git remote add origin https://github.com/farhanayub/GitHub.git
+/* Don’t forget to replace the URL with your own. */
+git pull origin master

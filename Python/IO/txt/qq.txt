@@ -1,2 +1,9 @@
 Day Day Up 
 UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-46: character maps to <undefined>
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-46: character maps to <undefined>
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-46: character maps to <undefined>
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-46: character maps to <undefined>
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-46: character maps to <undefined>
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-46: character maps to <undefined>
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-46: character maps to <undefined>
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-46: character maps to <undefined>
