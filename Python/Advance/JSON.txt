@@ -1,0 +1,84 @@
+JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式，易于人阅读和编写。
+
+json.dumps	将 Python 对象编码成 JSON 字符串
+json.loads	将已编码的 JSON 字符串解码为 Python 对象
+
+以下实例展示了Python 如何解码 JSON 对象：
+
+实例
+#!/usr/bin/python
+import json
+
+jsonData = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+
+text = json.loads(jsonData)
+print(text)
+以上代码执行结果为：
+
+{u'a': 1, u'c': 3, u'b': 2, u'e': 5, u'd': 4}
+
+---Demjson---
+在使用 Demjson 编码或解码 JSON 数据前，我们需要先安装 Demjson 模块。本教程我们会下载 Demjson 并安装：
+
+$ tar -xvzf demjson-2.2.3.tar.gz
+$ cd demjson-2.2.3
+$ python setup.py install
+
+encode	将 Python 对象编码成 JSON 字符串
+decode	将已编码的 JSON 字符串解码为 Python 对象
+
+实例
+#!/usr/bin/python
+import demjson
+
+data = [ { 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5 } ]
+
+json = demjson.encode(data)
+print(json)
+以上代码执行结果为：
+
+[{"a":1,"b":2,"c":3,"d":4,"e":5}]
+
+---
+实例
+以下实例展示了Python 如何解码 JSON 对象：
+
+实例
+#!/usr/bin/python
+import demjson
+
+json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+
+text = demjson.decode(json)
+print(text)
+以上代码执行结果为：
+
+{u'a': 1, u'c': 3, u'b': 2, u'e': 5, u'd': 4}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dict	object
+list, tuple	array
+str, unicode	string
+int, long, float	number
+True	true
+False	false
+None	null

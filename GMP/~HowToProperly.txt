@@ -1,8 +1,0 @@
-L2 Team
-    1. Alert Inbox
-    2. External tickets
-    3. Dispatching
-    4. Handover (immediately):
-
-All teams
-    5. Processing

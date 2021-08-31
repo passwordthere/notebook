@@ -1,0 +1,73 @@
+GCS 服务区域（备份、存储、网络、DCM）   Global Cloud Service
+
+尚未加入 SNOW 的 LoB 的主题（目前除了 HxM、HxM Payroll）
+
+Service Offerin：GCS-Compute-GMP
+Assign Groups：GCS GMP Compute
+            GCS GMP Compute L2
+            GCS GMP Compute L3
+            GCS GMP Compute Hardware
+            GCS GMP Compute Service Management
+
+-------------------Service Offerin-------------------
+对于事件，选择以下服务产品 Service Offering：
+Backup: GCS-Backup-GMP
+Storage: GCS-Storage-GMP
+Network: GCS-Network-*
+HxM Payroll: SF Ops Payroll
+Tools Team: GCS-Cloud Tools-TIC
+HxM in DC12: SF Ops Platform Security (includes Anti Virus, Syslog, and Security Incidents) Rot 1
+HxM in DC13: SF Ops Platform Security (includes Anti Virus, Syslog, and Security Incidents) Rot 2
+
+对于服务请求，请使用服务目录来检查是否有适合您的请求的目录项:
+请选择目录“Cross LoB”并创建“Cross - Generic Service Request”。在此处选择
+Business Unit：
+    Global Cloud services
+Service Offering as required:
+    GCS-Backup-GMP
+    GCS-Storage-[usage]
+    GCS-Network-GMP-[usage] (e.g. GCS-Network-GMP-Loadbalancer) - if no, "GCS - CND non-Standard / Project Request" which halso provides GMP relevant service offerings to be pciked from NW team
+    For non-GCS / LoB service offerings the LoBs in SNOW can be adressed via the following service offering, e.g. for re-routing an existing task there:
+    HxM Payroll: SF Ops Payroll
+
+--------------------SNOW--------------------
+Assign to me, 以防工单在我们的服务产品/分配组内
+在更新其他服务产品/分配组中的票证时 do not Assign to me
+do NOT move tickets from other assignment groups to ours
+对于 SCTASK，还要检查相关的 RITM 
+
+--------------------SNOW<->SPC----------------------
+服务请求
+确保您被分配到 SCTASK 作为 processor. If not, click "Assign to me"
+检查 Task Service Offering 是否维持，如果没有添加这个
+选择 SPC 作为外部系统
+根据 LoB 选择切换服务： 
+    Event Ticketing: HCP_EVENT_TICKETING
+    IBP: IBP_INTEGRATED_BUSINESS_PLANNING_NETWEAVER
+    ByD/C4C: SAAS_BYD_C4C_CLOUD_OPERATIONS
+    DEV/VLAB: SAAS_DEVELOPMENT_AND_VERIFICATION_LANDSCAPE_SYSTEM
+    SAP CP: CP_NEO_PLATFORM_SERVER_SUPPORT
+提供相关信息 as provider info， also include the footer
+单击“Provider Input required”并根据工单处理选择适当的状态，工单将更改为等待状态，一段时间后将自动在工单中维护 SPC 工单 ID（如果尚不存在）
+检查没有遇到错误
+关闭 SNOW 任务的相关内部工单
+
+事件
+如果您正在处理从 SPC 发送到 SNOW 的事件，则使用“发送回复”/“已解决”功能而不是票桥将其发送回 SPC。
+确保您被 Assign To 事件处理者
+选择 SPC Operation 作为 Service Offering
+选择合适的 Handover Service 根据 LoB
+写信在 Provider Info 中并且别忘了 footer
+Save the ticket, the ticket status will change to awaiting info
+关闭 SNOW 任务的相关内部工单
+
+---------------------SPC--------------------
+Set Internal Ticket to "In Process"
+Open SPC
+    Go to "Edit"
+    Go to "Save"
+    You are now Processor of the SPC
+Start your work
+Once SPC has been sent back, set Internal Ticket to "Complete".
+
+-------------------

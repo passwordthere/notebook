@@ -1,0 +1,45 @@
+以下哪个 if 语句是正确的？
+
+if a >= 22:
+if (a >= 22)
+if (a => 22)
+if a >= 22
+回答错误，正确答案为 if a >= 22:。
+
+---
+
+以下哪个关键字是用于给 if 语句添加其他条件语句的？
+
+else if
+elseif
+elif
+以上都不是
+回答错误，正确答案为 elif。
+
+---
+
+假设你有一个变量 "example"，如何判断它的类型？
+
+getType(example)
+Type(example)
+type(example)
+example.type:
+回答错误，正确答案为 type(example)。
+
+---
+
+def f(): pass
+
+print(type(f()))
+
+以上代码输出结果为？
+
+<class 'function'>
+<class 'tuple'>
+<class 'NoneType'>
+<class 'str'>
+<class 'type'>
+回答错误， type() 的参数是函数的返回值，该返回值为 None。
+
+---
+
