@@ -1,0 +1,29 @@
+▌ 0. Step: Precheck 
+
+▌ 1. Step: Check ticket 
+- RCA
+- Fixed
+
+▌ 2. Step: Reinstall OS 
+- Install
+UUID 
+- Clear IML
+- Recheck IML
+
+▌ 4. Step: Additional checks 
+
+▌ 5. Step: Check and active LACP 
+
+▌ 6. Step: Adapt server status and comments 
+
+▌ SNOW
+Hello colleagues,
+
+Reinstallation has been completed and no errors occur so far.
+Kindly verify from your side.
+
+Regards,
+Murphy
+For being processed further within our team send the ticket back to our service offering in ServiceNOW by sending it to the component
+GCS-CP-003 - GCS-Compute-GMP
+via the "Send to Support" functionality in SPC.

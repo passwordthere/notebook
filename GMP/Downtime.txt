@@ -1,3 +1,81 @@
+▌Precheck
+(vadbxme) vsa6823196:~ #
+# df -h|grep vol2
+ausyd2npchs01-sc01fi0031:/vol2_XME/q_dbdata                        370G  184G  187G  50% /sapdb/XME/sapdata1
+(vadbxme) vsa6823196:~ #
+# lsof /sapdb/XME/sapdata1
+
+▌Rename VIPs
+https://gmp.wdf.sap.corp/cgi-bin/objects.fpl/CQA/query/?query=DnsHosts.with(hostname%20ilike%22va%25XME%25%22)%20%2B%20DnsHosts.with(ident%20ilike%22va%25<SID2>%25%22)%20%2BDnsHosts.with(hostname%20ilike%22va%25<SID3>%25%22)%20&attributes=ident&attributes=hostname&attributes=ip&attributes=network&attributes=objectId&auto_start=1
+Before:                                                                     After:
+vaai01xme-new.syd2.od.sap.biz:/10.196.99.137    vaai01xme.syd2.od.sap.biz:/10.196.99.137
+vadbxme-new.syd2.od.sap.biz:/10.196.99.136      vadbxme.syd2.od.sap.biz:/10.196.99.136
+vacixme-new.syd2.od.sap.biz:/10.196.99.135      vacixme.syd2.od.sap.biz:/10.196.99.135
+vacsxme-new.syd2.od.sap.biz:/10.196.99.134      vacsxme.syd2.od.sap.biz:/10.196.99.134
+vacsxme.syd2.od.sap.biz:/10.196.161.151         vacsxme-old.syd2.od.sap.biz:/10.196.161.151
+vacixme.syd2.od.sap.biz:/10.196.161.145         vacixme-old.syd2.od.sap.biz:/10.196.161.145
+vaai01xme.syd2.od.sap.biz:/10.196.161.141       vaai01xme-old.syd2.od.sap.biz:/10.196.161.141
+vadbxme.syd2.od.sap.biz:/10.196.161.119         vadbxme-old.syd2.od.sap.biz:/10.196.161.119 
+
+▌Move Instance
+- Summary
+Move Instance will perform below actions for all given pairs of hosts: <\br>
+
+    Check the power states and the general status of the given hosts
+    Change states
+    Move nfs mounts to target host
+    Create a backup of original fstab
+    Move virtualip to target host
+    adapt the inventory data
+    comment the sources /etc/fstab file
+
+Your given data sets are:
+Source Host		Target Host
+name 	power 	status 	comment 		name 	power 	status 	comment
+vsa6823831 	on 	Live 	Used for XME (CS) DR 		vsa8867077 	on 	System available in pool 	used for XME (DB) DR new
+vsa6823615 	on 	Live 	Used for XME (CI) DR 		vsa8867078 	on 	System available in pool 	used for XME (CI) DR new
+vsa6823196 	on 	Live 	Used for XME (DB) DR 		vsa8867077 	on 	System available in pool 	used for XME (DB) DR new
+vsa6823595 	on 	Live 	Used for XME (AI01) DR 		vsa8867079 	on 	System available in pool 	used for XME (AI01) DR new
+
+UUID 959259C80AE511ECBF8A9C29D38BC7CC
+
+▌Verify VIPs via Mind
+https://gmp.wdf.sap.corp/cgi-bin/mind_gui.pl/details?job_id=290826
+
+▌Update external ticket 
+- Assign to me
+- Task Service Offering
+Assignment group
+    SF Ops Payroll was GCS GMP Compute
+Task Service Offering
+    SF Ops Payroll was GCS-Compute-GMP
+- External info
+Hello colleagues,
+
+movement is done from OS-side.
+
+Please start your applications. Once all is fine from your side please revert this ticket back so we can decommission the old servers.
+
+Create a second ticket for backup-configuration if needed. Create a third ticket for LVM-configuration if needed.
+
+Regards
+Murphy
+
+For being processed within our team reroute the ticket to our service offering: GCS-Compute-GMP
+(Default Assignment Group after rerouting: GCS GMP Compute)
+
+▌Update GMP inventory 
+- Live update virtual machine
+- Security Groups: resync single Virtual Machine
+UUID D22151020AE811ECBDBB36E984870929
+UUID D552EEA80AE811ECB8B5C0E984870929
+UUID D8082E600AE811ECB5DA04EA84870929
+- Check and fix each SID object in GMP
+XME 	Prod-SYD-DC10-PAYROLL-RT07 	ausyd3npchs03-pay01fi0015.syd.od.sap.biz 
+
+
+=========================================
+
 - Dispach
 
 - Search SID

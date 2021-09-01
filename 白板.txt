@@ -1,40 +1,9 @@
+32651   Why there are still BIT signature in SNOW?  
+Just copied from template
 
+32015   Pls follow "https://bit-twiki.wdf.sap.corp/bin/view/ToolsAndHelper/Processes/HowToPrepareRepaired" and in process this internal ticket again. Before reinstall OS, check comment carefully.And why even RITM ticket was not removed in additional comment, server status is still in maintenance?
+SNOW ticket once posted "can't login neither a1sroot nor support" and just rebooted iLO so that can access iLO, but I can log in with a1sroot when I handling the ticket and don't know that still need to reinstall OS.
 
-▌Install OS
-- rsa6366 as blade server for vadbJ1N
+32280   Don't paste this info "This ticket is opened with reference to already existing case 5357944527" in newly created RITM0090286 which confused DCM team. A new HW issue needs a new RITM ticket and a new vender case.
 
-
-▌
-
-
-▌
-
-
-▌
-
-
-▌
-
-
-▌
-
-
-▌
-
-
-▌
-
-
-▌
-
-
-▌
-
-
-▌
-
-
-▌
-
-
-▌
+32401   

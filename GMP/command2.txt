@@ -1,0 +1,12 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#Additional checks 
+
+▌B
+Serial Number
+Network -> iLO Dedicated Network Port -> General -> FQDN -> submit -> Reset
+Administration -> Access Settings -> Server Name bsa1234 (example) , Server FQDN bsa1234.od.sap.biz (example) 
+Administration -> Management -> SNMP Settings -> Read Community: hppsp. Trap Community:automated
+Virtual Media -> Boot Order -> Boot Mode -> Legacy BIOS 
+
+▌R
+Administration -> User Administration -> Local Users -> If no "support" and "a1sroot" and "GMPmoni" user

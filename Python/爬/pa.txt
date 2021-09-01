@@ -1,0 +1,23 @@
+XPATH：
+    元素、属性、文本、命名空间、处理指令、注释以及文档（根）节点
+
+    节点关系：
+        Parent
+        Children
+        Sibling
+        Ancestor
+        Descendant
+    
+    语法
+        nodename    选取此节点所有子节点
+        /
+        //
+        .
+        ..
+        @
+        *
+        @*
+        [@attrib]
+        [@attrib='value']
+        [tag]
+        [tag='text']

@@ -1,5 +1,4 @@
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#ticket
 
 Event Ticketing: HCP_EVENT_TICKETING
 IBP: IBP_INTEGRATED_BUSINESS_PLANNING_NETWEAVER
@@ -7,12 +6,13 @@ ByD/C4C: SAAS_BYD_C4C_CLOUD_OPERATIONS
 DEV/VLAB: SAAS_DEVELOPMENT_AND_VERIFICATION_LANDSCAPE_SYSTEM
 SAP CP: CP_NEO_PLATFORM_SERVER_SUPPORT
 
-Xu, Murphy	Please follow the template to provide the complete details of the servers and modify the template content appropriately & Better to provide RITM and SCTASK in downtime list when registering downtime. 
-
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #inspec
 
-gmp_info;uptime;virsh list --all;virtualip list;ps auxww|grep [s]ap;df -h
+cp /etc/fstab /etc/fstab.bak
+sed -i_GMPSM-8238 -e '/nfs/s/,[rw]size=[[:digit:]]\+//g' -e '/nfs/s/,actimeo=[[:digit:]]\+//g' /etc/fstab
+umount -a -t nfs;mount -a
+mount | grep vol[1-3]
 
 chgrp -v sapsys /usr/sap/sapservices && chmod -v 0755 /usr/sap/sapservices
 
@@ -22,30 +22,57 @@ rm -rf /opt/McAfee/ /opt/isec/ /var/McAfee /etc/ma.d/
 wget -O /tmp/mcafee-install.sh http://repo:50000/repo/tools/McAfee/mcafee-install.sh ; sh /tmp/mcafee-install.sh ; rm /tmp/mcafee-install.sh 
 systemctl enable ma ; /usr/lib/systemd/systemd-sysv-install enable ma
 
-cp /etc/fstab /etc/fstab.bak
-sed -i 's/timeo=600,actimeo=600/timeo=600/g; s/timeo=600,actimeo=1/timeo=600/g; s/rsize=65536,wsize=65536//g' /etc/fstab
-umount -a -t nfs && mount -a
-
-sed -i 's/timeo=600,actimeo=600/timeo=600/g; s/timeo=600,actimeo=1/timeo=600/g; s/rsize=65536,wsize=65536//g' /etc/fstab
-umount -a -t nfs && mount -a
-
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #/var
 
 df -hP /var && ls -lahS $(find /var/ -xdev -type f -size +10000k)
+
 df -hP /var/log && ls -lahS $(find /var/log -xdev -type f -size +20000k)
 
 rm /var/osquery/osquery.db/*.sst && service osqueryd restart
+
 zypper clean -a 
 
 logrotate -f /etc/logrotate.conf
 logrotate -f /etc/logrotate.d/syslog
 
 service syslog stop
-bzip2 -c /var/log/message > /tmp/message_`date +%Y%m%d`.bz2
-echo -n '' > /var/log/message
-mv /tmp/message_`date +%Y%m%d`.bz2 /var/log/
+bzip2 -c /var/log/<filename> &gt; /tmp/<filename>_`date +%Y%m%d`.bz2
+echo -n '' &gt; /var/log/<filename>
+mv /tmp/<filename>_`date +%Y%m%d`.bz2 /var/log/
 service syslog start 
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#heartbeat
+
+df -h /var;ps aux | grep [j]oschyd;gmp_info
+
+▌11
+service joschyd stop 
+ps aux | grep [j]oschyd
+
+service joschyd start-nodelay 
+service joschyd status
+
+▌12
+systemctl stop joschyd 
+ps aux | grep [j]oschyd
+
+zypper --quiet ref; zypper --quiet up joschyd
+touch /opt/imal/etc/start-nodelay
+systemctl start joschyd
+
+# to verify if service was restarted, wait for about 30 seconds, then
+systemctl status joschyd
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#ldap
+
+for i in $(dig ldapr-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short | grep -v ";") ; do echo "=== $(dig +short -x $i | grep -v ";" | egrep -i "ldap...-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
+
+for i in $(dig ldap-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short) ; do echo "=== $(dig +short -x $i | egrep -i "ldap..-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
+
+for i in $(dig ldapmaster-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short) ; do echo "=== $(dig +short -x $i | egrep -i "ldap...-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #/tmp
@@ -61,35 +88,7 @@ gmp_info;uptime;virsh list --all;virtualip list;ps auxww|grep [s]ap;df -h
 
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#heartbeat
 
-df -h /var 
-ps aux | grep [j]oschyd
-gmp_info
-
-service joschyd stop 
-ps aux | grep [j]oschyd
-
-kill <joschydPID>
-
-kill -9 <joschydPID> 
-
-service joschyd start-nodelay 
-service joschyd status
-
-tail /var/log/mail 
-tail /var/log/mail | grep denied
-
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#ldap
-
-for i in $(dig ldapr-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short | grep -v ";") ; do echo "=== $(dig +short -x $i | grep -v ";" | egrep -i "ldap...-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
-
-for i in $(dig ldap-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short) ; do echo "=== $(dig +short -x $i | egrep -i "ldap..-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
-
-for i in $(dig ldapmaster-syd2.$(awk '/domain/ {print $2}' /etc/resolv.conf) +short) ; do echo "=== $(dig +short -x $i | egrep -i "ldap...-...") ===" ; nmap -PN -p ldap $i | egrep -i "state|389/tcp" ; echo " " ; done 
-
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #ldapchk-saas 
 
 /opt/imal/bin/ldapchk.pl -v -syncstate
