@@ -1,7 +1,7 @@
 ▌ 0. Step: Precheck 
 
 ▌ 1. Step: Check ticket 
-- RCA
+- Not a RCA
 - Fixed
 
 ▌ 2. Step: Reinstall OS 
