@@ -1,3 +1,4 @@
+C:\Users\%username%\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets\
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 Event Ticketing: HCP_EVENT_TICKETING
@@ -42,6 +43,8 @@ echo -n '' &gt; /var/log/<filename>
 mv /tmp/<filename>_`date +%Y%m%d`.bz2 /var/log/
 service syslog start 
 
+rm /var/log/elasticsearch/gc.log.* 
+
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #heartbeat
 
@@ -64,6 +67,11 @@ systemctl start joschyd
 
 # to verify if service was restarted, wait for about 30 seconds, then
 systemctl status joschyd
+
+▌windows
+$client = new-object System.Net.WebClient
+$client.DownloadFile('http://repo:50000/repo/windows/scripts/update_all_sap_tools.ps1', 'C:\Users\c5327170\Downloads\update_all_sap_tools.ps1')
+.\update_all_sap_tools.ps1
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #ldap

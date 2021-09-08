@@ -1,0 +1,20 @@
+简单例子
+    if __name__ == '__main__':
+        app = QApplication(sys.argv)
+        w = QWidget()
+        sys.exit(app.exec_())
+icon
+    class Example(QWidget):
+        def __init__(self):
+            super().__init__()
+            self.initUI()
+        def initUI(self):
+            self.setWindowIcon(QIcon('web.png'))
+tips
+
+quit
+
+message
+
+center
+

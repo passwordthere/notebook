@@ -1,0 +1,10 @@
+China Day weekday	06:00 - 15:00
+China Late Weekday	09:00 - 18:00
+China Day Weekend	06:00 - 14:00
+China Late Weekend	14:00 - 22:00
+*Fridays    16:30   Handover
+
+German Day Weekday	07:00 - 15:00
+German Late Weekday	14:00 - 22:00
+German Late Weekend	14:00 - 22:00
+German Day weekday	09:30 - 17:30 ( 07:00 - 15:00 on holiday in both regions )

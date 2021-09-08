@@ -1,0 +1,13 @@
+1
+    网络分析工具
+        Wireshark, fiddler
+    反编译&动态调试
+        ida, od, windbg, x64dbg
+    比赛
+        CP_NEO_PLATFORM_SERVER_SUPPORT
+
+2
+    渗透
+        BurpSuite, Fiddler, AWVS, Appscan
+    漏洞
+        SQL, XSS, CSRF, 文件上传
