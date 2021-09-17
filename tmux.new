@@ -1,0 +1,28 @@
+tmux new -s 
+tmux ls //s
+tmux kill-session -t
+tmux a -t
+tmux detach
+tmux switch -t
+
+
+
+s //ls session
+$ //rename session
+d //detach
+
+
+
+c //+window
+& //-window
+w //ls window
+, //rename window
+
+
+
+
+" //^
+% //>
+x //-pane
+  //reorganize pane
+z //full screen

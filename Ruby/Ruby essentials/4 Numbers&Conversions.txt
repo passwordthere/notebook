@@ -1,0 +1,14 @@
+Integer
+Fixnum
+Bignum
+Float
+Rational
+
+Conversions:
+    Integer(2.0)
+    Integer("2")
+    Integer(0xABCD)
+    Integer(0b0110)
+
+    "e".getbyte(0)
+        or Integer(?e)

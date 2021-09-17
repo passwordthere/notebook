@@ -1,0 +1,85 @@
+nodename
+/
+//  
+. 当前
+..  父
+@ 属性
+
+school  all
+/school school元素
+/school/student 子节点中的student元素
+//student 所有student元素，不考虑位置
+school//student 后代中的student元素
+@lang 所有lang属性
+
+/school/student[1]  第一个
+/school/student[last()]
+/school/student[position()<3] 前两个
+//name[@lang] 选取所有有lang属性的name元素
+//name[@lang='eng']
+/school/student[score>90]
+/school/student[score>90]/name
+
+*
+| 多个路径
+
+ancestor
+ancestor-or-self
+attribute
+child
+descendant
+descendant-or-self
+following
+namespace
+parent
+preceding
+preceding-sibling
+self
+
+字符匹配
+abc         abc
+a.c         abc,a#c,a9c 除\n
+a[1b$]c     a1c,abc,a$c 
+a[^123]c    abc,a4c
+a[db\.\\]c  adc,abc,a.c,a\c
+
+预定义字符集
+^     ^abc        abcde
+$     abc$        123abc
+\b    \babc\b     abc
+\d    a\dc        a3c
+\D    a\Dc        a@c 
+\s    a\sc        a c          //<空格>,\t,\n,\r,\f 
+\S    a\Sc        aDc,a*c 
+\w    a\wc        abc,a1c,aBc,a_c         //字母数字下划线
+\W    a\Wc        a%c,a c,a-c           //^\w
+
+数量限定
+*         0,n         abc*          ab,abccc
++         1,n         abc+          abc,abccc
+?         0,1
+{m}       m
+{m,}      m,n 
+{,m}      0~m
+{m,n}     m~n
+
+|         匹配任意一个
+
+python中的正则表达式:
+r"\d"
+re模块
+  re.compile  pattern = re.compile
+  re.match(pattern, string, flags=0)
+
+
+
+
+
+
+
+
+
+
+
+
+

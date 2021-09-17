@@ -1,0 +1,16 @@
+4+1
+    $   global
+    @   instance
+    [a-z] or _  local
+    [A-Z]   constant
+    @@  class
+
+local
+global
+    predefine
+        $$  PID
+        $_  gets
+        $0  script name
+class
+instance
+constant

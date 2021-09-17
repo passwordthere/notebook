@@ -1,0 +1,11 @@
+可变参数
+    def hi(*args)
+        args.each {|name| puts name}
+    end
+返回值
+    def sum(num1, num2)
+        result = num1 + num2
+        return result
+    end
+别名
+    alias summ sum

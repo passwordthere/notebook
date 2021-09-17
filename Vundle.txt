@@ -1,0 +1,29 @@
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+:PlugInstall  or
+vim +PluginInstall +qall
+
+:BundleClean
+BundeleUpdate
+BundleList
+BundleSearch
+
+:PluginList
+PluginInstall
+PluginSearch
+PluginClean
+
+
+===============================================
+~/.vimrc
+"
+Plugin 'VundleVim/Vundle.vim'
+" 'username/xxx'
+Plugin 'L9'
+" 'vim-scripts/xxx'
+Plugin 'tpope/vim-fugitive'
+" local 'file:///path'
+Plugin 'file:///home/gmarik/path/to/plugin'
+"
+call vundle#end()
+===============================================

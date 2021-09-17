@@ -1,0 +1,5 @@
+Dir.pwd
+Dir.chdir
+Dir.mkdir
+Dir.entries(".")
+Dir.foreach(".") {|file| puts file}

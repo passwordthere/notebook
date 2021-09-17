@@ -1,0 +1,11 @@
+require 'date'
+
+date = Date.new(2021, 9, 14)
+date.day
+date.month
+date.year
+
+date = DateTime.now
+
+time_until = birthday - today
+time.until.to_i # get the number of days until birthday

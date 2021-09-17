@@ -1,5 +1,10 @@
 C:\Users\%username%\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets\
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+wget -O /tmp/cabling_checker.sh http://repo:50000/repo/ByD-SAP-Cloud/c5233808_Network_Testing_Scripts/testing/cabling_checker.sh
+chmod +x /tmp/cabling_checker.sh
+/tmp/cabling_checker.sh
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 Event Ticketing: HCP_EVENT_TICKETING
 IBP: IBP_INTEGRATED_BUSINESS_PLANNING_NETWEAVER

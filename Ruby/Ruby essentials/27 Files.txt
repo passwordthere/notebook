@@ -1,0 +1,25 @@
+File.new('tmp.txt')
+File.rename('tmp.txt', 'tem.txt')
+File.delete('tem.txt')
+File.size('tmp.txt')
+File.zero?('tmp.txt)
+File.ftype('tmp.txt')
+File.ctime('tmp.txt')
+File.mtime('tmp.txt')
+File.atime('tmp.txt')
+
+file = File.open('tmp.txt', 'r')
+file.readline
+file.each {|line| print line}
+file.getc.chr
+file.puts('hello 1')
+file.rewind
+
+File.exists?('tmp.txt')
+File.file?('tmp.txt')
+File.directory?('tmp.txt')
+File.readable?('tmp.txt')
+File.writable?('tmp.txt')
+File.executable?('tmp.txt')
+file.closed?
+file.close

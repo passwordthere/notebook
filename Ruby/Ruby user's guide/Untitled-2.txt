@@ -1,0 +1,35 @@
+▌Redefinition of methods
+class Human
+  def identify
+    print "I'm a person.\n"
+  end
+  def train_toll(age)
+    if age < 12
+      print "Reduce fare.\n"
+    else
+      print "Normal fare.\n"
+    end
+  end
+end
+
+class Student<Human
+  def identify
+    super
+    print "I'm a student.\n"
+  end
+end
+
+class Dishonest < Human
+  def train_toll(age)
+    super(11)
+  end
+end
+
+class Honest < Human
+  def train_toll
+    super(age)
+  end
+end
+
+▌Singleton methods
+只给单个对象的方法称为单顿方法。

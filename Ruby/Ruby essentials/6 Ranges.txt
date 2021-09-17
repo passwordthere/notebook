@@ -1,0 +1,21 @@
+1..10
+1...10
+
+(1..10).to_a
+('a'..'b').to_a
+('cab'..'car').to_a
+
+方法
+    words = 'cab'..'car'
+    words.max
+    words.min
+    words.include?('can')
+    words.reject {|subrange| subrange < 'cal'}
+    words.each {|word| puts "Hello " + word}
+范围作为条件表达式
+    while input = gets
+    puts input + " triggered" if input =~ /start/ .. input =~ /end/
+in
+    (1...20) === 15
+    ('k'..'z') === 'm'
+case

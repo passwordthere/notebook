@@ -1,0 +1,9 @@
+line.gsub(/Perl\s+Python/, 'Coolboy')
+
+while gets
+  if /Ruby/
+    print
+  end
+end
+||
+ARGF.each {|line| print line if line =~ /Ruby/}

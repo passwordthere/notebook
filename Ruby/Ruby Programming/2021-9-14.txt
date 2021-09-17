@@ -1,0 +1,5 @@
+3.times { puts "hello" }
+
+a = %w[Mon Tue Wed Thu Fri Sat Sun]
+
+s = s*s while s < 3000
