@@ -1,0 +1,26 @@
+physical server:
+	-类型及命名规则
+		HP: rsa, bsa, bma....vc-vip
+		Lenove: rsa
+		CISCO: ucs, rcs
+	-管理系统GUI界面
+		找到bsa15488的IP
+		WTS：打开浏览器输入IP
+		a1sroot
+
+
+
+ESC+Shift+9
+
+
+
+
+
+
+hot spare - 紧急情况，每月更新一次
+spare - 非紧急情况替换机
+reserved - 属于LoB，使用需要申请
+
+PXE
+1 BOOT=PXE
+2 DHCP

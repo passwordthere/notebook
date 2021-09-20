@@ -1,0 +1,61 @@
+- Requirements
+bsa15707
+bsa15718
+bsa12373
+bsa12375
+bsa12368
+bsa15704
+bsa15708
+bsa15702
+bsa15706
+bsa15711
+bsa15703
+bsa15723
+bsa15719
+bsa15700
+bsa12379
+bsa10897
+bsa15721
+bsa15710
+bsa12374
+bsa15701
+- Prechecks & Target selection
+bsa15707
+- CQA
+https://gmp.wdf.sap.corp/cgi-bin/objects.pl/CQA/query/?query=HwPools.with(name%3D%3D%22Prod-FRA1-SAPCP-Canary-Sandbox-C-ASF-XENHV-SLES12SP5%22).servers&attributes=ident&attributes=comment&attributes=state&attributes=memory&attributes=cpuType&attributes=vendor&attributes=operatingSystem&attributes=lastInstallDate&attributes=hypervisor&attributes=hypervisor.vms_counts&attributes=hypervisor.vms.powerStates&attributes=hypervisor.isNotAutomated&attributes=hypervisor.vms.memory&attributes=hypervisor.vms.operatingSystemReleases&attributes=hypervisor.vms&attributes=hypervisor.vms.comments&attributes=hypervisor.vms.operationalComments&attributes=operationalComment&auto_start=1
+- Spare servers with same CPU flags as the live servers
+same
+- Check for offline VMs in state powered off
+on
+- Check HW for all Spare servers via WTS
+ok
+- Create Lists of hypervisors for the pool
+ok
+- Check Operating System,Operational comment and Comment for VM (skip the patching if needed)
+ok
+- Start Self Services
+Hypervisor status overview
+
+Hypervisor for Hardwarepool Prod-FRA1-SAPCP-Canary-Sandbox-C-ASF-XENHV-SLES12SP5
+bsa15707_hv => Spare
+bsa15718_hv => Live
+bsa12373_hv => Live
+bsa12375_hv => Live
+bsa12368_hv => Live
+bsa15704_hv => Live
+bsa15708_hv => Live
+bsa15702_hv => Live
+bsa15706_hv => Live
+bsa15711_hv => Live
+bsa15703_hv => Live
+bsa15723_hv => Live
+bsa15719_hv => Live
+bsa15700_hv => Live
+bsa12379_hv => Live
+bsa10897_hv => Live
+bsa15721_hv => Live
+bsa15710_hv => Live
+bsa12374_hv => Live
+bsa15701_hv => Live
+
+UUID CA52EC7CDFAC11EB9749D179EAE0BFF0

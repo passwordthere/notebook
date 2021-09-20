@@ -1,0 +1,200 @@
+(inspec01-fra1) c5250702@vsa7035832:~> check_instance vsa8726716
+Welcome to Inspec in Prod-FRA1-CIS
+Checking vsa8726716 used for L33 (AI06) in PROD-FRA1-C4C-BB208-APP01-SLES12SP4
+Autodetected LoB: C4C y/n
+Autodetected SID: L33 y/n
+Autodetected Instance Type: AI y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Please pick data protection type
+1 = Default
+2 = EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_c4c_ai -t ssh://$(whoami)@vsa8726716 --sudo --input-file /inspec_tmp/saas_testsuite/attributes/instances/lobs/c4c.yml --input sid=L33
+
+Profile: Instance checks for C4C AI servers (check_instance_for_ai_servers_c4c)
+Version: 0.1.0
+Target:  ssh://c5250702@vsa8726716:22
+  ×  check-instance-app-volumes-0.1: Instance Check: App Volumes (2 failed)
+     ✔  etc_fstab with mount_point == "/usr/sap/DAA" should be configured
+     ×  etc_fstab with mount_point == "/usr/sap/DAA" mount_options should eq [["rw", "hard", "intr", "timeo=600", "actimeo=600", "nolock", "proto=tcp", "rsize=32768", "wsize=32768"]]
+
+     expected: [["rw", "hard", "intr", "timeo=600", "actimeo=600", "nolock", "proto=tcp", "rsize=32768", "wsize=32768"]]
+          got: [["rw", "hard", "intr", "timeo=600", "actimeo=600", "nolock", "proto=tcp", "rsize=65536", "wsize=65536"]]
+     (compared using ==)
+
+     ✔  Mount /usr/sap/DAA should be mounted
+     ✔  etc_fstab with mount_point == "/usr/sap/trans" should be configured
+     ×  etc_fstab with mount_point == "/usr/sap/trans" mount_options should eq [["rw", "hard", "intr", "timeo=600", "actimeo=600", "nolock", "proto=tcp", "rsize=32768", "wsize=32768"]]
+
+     expected: [["rw", "hard", "intr", "timeo=600", "actimeo=600", "nolock", "proto=tcp", "rsize=32768", "wsize=32768"]]
+          got: [["rw", "hard", "intr", "timeo=600", "actimeo=600", "nolock", "proto=tcp", "rsize=65536", "wsize=65536"]]
+
+     (compared using ==)
+
+     ✔  Mount /usr/sap/trans should be mounted
+  ×  check-instance-sid-app-volumes-0.1: Instance Check: App Volumes (2 failed)
+     ✔  etc_fstab with mount_point == "/sapmnt/L33" should be configured
+     ×  etc_fstab with mount_point == "/sapmnt/L33" mount_options should eq [["rw", "hard", "intr", "timeo=600", "actimeo=1", "nolock", "proto=tcp", "rsize=32768", "wsize=32768"]]
+
+     expected: [["rw", "hard", "intr", "timeo=600", "actimeo=1", "nolock", "proto=tcp", "rsize=32768", "wsize=32768"]]
+          got: [["rw", "hard", "intr", "timeo=600", "actimeo=1", "nolock", "proto=tcp", "rsize=65536", "wsize=65536"]]
+
+     (compared using ==)
+
+     ✔  Mount /sapmnt/L33 should be mounted
+     ✔  etc_fstab with mount_point == "/usr/sap/L33" should be configured
+     ×  etc_fstab with mount_point == "/usr/sap/L33" mount_options should eq [["rw", "hard", "intr", "timeo=600", "actimeo=1", "nolock", "proto=tcp", "rsize=32768", "wsize=32768"]]
+
+ 
+
+     expected: [["rw", "hard", "intr", "timeo=600", "actimeo=1", "nolock", "proto=tcp", "rsize=32768", "wsize=32768"]]
+          got: [["rw", "hard", "intr", "timeo=600", "actimeo=1", "nolock", "proto=tcp", "rsize=65536", "wsize=65536"]]
+
+ 
+
+     (compared using ==)
+
+ 
+
+     ✔  Mount /usr/sap/L33 should be mounted
+  ✔  check-instance-kernel-parameters-0.1: Instance Check: Kernel Parameters on VMs
+     ✔  Kernel Parameter vm.swappiness value should match 25
+     ✔  Kernel Parameter kernel.shmall value should match 1152921504606846720
+     ✔  Kernel Parameter kernel.shmmax value should match 18446744073709551615
+
+ 
+
+
+Profile: Instance checks for AI servers (check_instance_for_ai_servers)
+Version: 0.1.0
+Target:  ssh://c5250702@vsa8726716:22
+
+ 
+
+  ×  check-instance-sapservices-0.1: check_instance_common: Sapservice file (3 failed)
+     ✔  File /usr/sap/sapservices should exist
+     ×  File /usr/sap/sapservices mode should cmp == "0755"
+
+ 
+
+     expected: "0755"
+          got: "0644"
+
+ 
+
+     (compared using `cmp` matcher)
+
+ 
+
+     ×  File /usr/sap/sapservices group should eq "sapsys"
+
+ 
+
+     expected: "sapsys"
+          got: "root"
+
+ 
+
+     (compared using ==)
+
+ 
+
+     ×  should not be empty
+     expected `"".empty?` to return false, got true
+  ↺  check-instance-vip-prepared-0.1: check_instance_common: Virtual IPs
+     ↺  Skipped control due to only_if condition: Not postchecking
+  ✔  check-instance-vip-live-0.1: check_instance_common: Virtual IPs
+     ✔  File /etc/sysconfig/network/virtualip content should match /^eth0:vaai\d{2}l33\.fra1.od.sap.biz/
+  ✔  check-instance-app-bowbridge-0.1: Instance Check: Bowbridge
+     ✔  File /opt/bowbridge/lib/libbbvsa.so should exist
+     ✔  Directory /opt/bowbridge owner should eq "l33adm"
+     ✔  Directory /opt/bowbridge group should eq "sapsys"
+
+ 
+
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5250702@vsa8726716:22
+
+ 
+
+  ✔  check-instance-limits-0.1: check_instance_common: default limits
+     ✔  limits.conf @sapsys should eq [["soft", "nofile", "65536"], ["hard", "nofile", "65536"]]
+     ✔  limits.conf @sdba should eq [["soft", "nofile", "65536"], ["hard", "nofile", "65536"]]
+     ✔  limits.conf @dba should eq [["soft", "nofile", "65536"], ["hard", "nofile", "65536"]]
+  ↺  check-instance-default-kernel-parameters-0.1: check_instance_common: default parameters
+     ↺  Skipped control due to only_if condition: No default parameters
+  ✔  check-instance-access-conf-0.1: check_instance_common: access.conf
+     ✔  File /etc/security/access.conf content should match /^\+:ALL:LOCAL$/
+     ✔  File /etc/security/access.conf content should match /^\+:CAM_OS_CIM_BIT:ALL$/
+     ✔  File /etc/security/access.conf content should match /^\+:CAM_OS_CSC_STORAGE_MGMT:ALL$/
+     ✔  File /etc/security/access.conf content should match /^\+:CAM_OS_CIM_BKP_ALL:ALL$/
+  ↺  check-instance-access-conf-eudp-0.1: check_instance_common: access.conf eudp
+     ↺  Skipped control due to only_if condition: EUDP
+  ✔  check-instance-access-conf-deny-0.1: check_instance_common: access.conf deny
+     ✔  File /etc/security/access.conf content should match /^\-:ALL:ALL$/
+  ✔  check-instance-access-conf-forbidden-0.1: check_instance_common: access.conf forbidden
+     ✔  File /etc/security/access.conf content should not match /^\+:CAM_OS_CIM_ALL:ALL$/
+  ✔  check-instance-initial-sid-0.1: check_instance_common: Initial Variables
+     ✔  L33 should match /^[A-Z\d]{3}$/
+  ↺  check-instance-initial-states-prepared-0.1: check_instance_common: Server State and Comment
+     ↺  Skipped control due to only_if condition: Not postchecking
+  ✔  check-instance-initial-states-live-0.1: check_instance_common: Server State
+     ✔  Live should match "Live"
+  ×  check-instance-mcafee-0.1: Instance Check: McAfee Installation (1 failed)
+     ✔  Service ma should be installed
+     ✔  Service ma should be enabled
+     ✔  Service ma should be running
+     ✔  Service isecespd should be installed
+     ✔  Service isecespd should be enabled
+     ✔  Service isecespd should be running
+     ✔  Service isectpd should be installed
+     ✔  Service isectpd should be enabled
+     ✔  Service isectpd should be running
+     ✔  Command: `/opt/McAfee/agent/bin/cmdagent -i|grep EpoServerLastUsed| awk -F\:  '{ print $2 } '` stdout should match /\ 147.204.66.134|\ vsa478426|\ 10.17.122.114|\ dewdfias031/
+     ✔  Command: `/opt/McAfee/agent/bin/cmdagent -i|grep LastASCTime` stdout should match "LastASCTime: \\d{14}"
+     ✔  Command: `/opt/McAfee/agent/bin/cmdagent -i|grep LastPolicyUpdateTime` stdout should match "LastPolicyUpdateTime: \\d{14}"
+     ✔  Command: `/opt/McAfee/agent/bin/cmdagent -i|grep UserProperty1` stdout should match "UserProperty1: Servers-IS|SaaS \\n"
+     ×  Command: `/opt/McAfee/agent/bin/cmdagent -i|grep UserProperty2` stdout should match "UserProperty2: \\D{1,}"
+     expected "" to match "UserProperty2: \\D{1,}"
+  ↺  check-instance-trendmicro-0.1: Instance Check: Trendmicro Installation
+     ↺  Skipped control due to only_if condition.
+
+ 
+
+
+Profile: Instances checks of C4C systems (check_instance_for_c4c_servers)
+Version: 0.1.0
+Target:  ssh://c5250702@vsa8726716:22
+
+ 
+
+  ✔  check-instance-default-volumes-0.1: Instance Check: Landscape Mounts
+     ✔  etc_fstab with mount_point == "/basmnt/tempdata" should be configured
+     ✔  etc_fstab with mount_point == "/basmnt/tempdata" mount_options should eq [["rw", "hard", "intr", "timeo=600", "nolock", "proto=tcp"]]
+     ✔  Mount /basmnt/tempdata should be mounted
+     ✔  etc_fstab with mount_point == "/usr/sap/hostctrl/new" should be configured
+     ✔  etc_fstab with mount_point == "/usr/sap/hostctrl/new" mount_options should eq [["ro", "hard", "intr", "timeo=600", "nolock", "proto=tcp"]]
+     ✔  Mount /usr/sap/hostctrl/new should be mounted
+     ✔  etc_fstab with mount_point == "/basmnt/repository" should be configured
+     ✔  etc_fstab with mount_point == "/basmnt/repository" mount_options should eq [["ro", "hard", "intr", "timeo=600", "nolock", "proto=tcp"]]
+     ✔  Mount /basmnt/repository should be mounted
+     ✔  etc_fstab with mount_point == "/basmnt/scripts" should be configured
+     ✔  etc_fstab with mount_point == "/basmnt/scripts" mount_options should eq [["ro", "hard", "intr", "timeo=600", "nolock", "proto=tcp"]]
+     ✔  Mount /basmnt/scripts should be mounted
+  ✔  check-instance-lob-access-conf-prod-0.1: check_instance_common: access.conf lob settings
+     ✔  File /etc/security/access.conf content should match /^\+:CAM_OS_BYD_PROD_PERM:ALL$/
+     ✔  File /etc/security/access.conf content should match /^\+:BYD_SUPPORT_OS_TEMP:ALL$/
+  ↺  check-instance-lob-access-conf-prod-eudp-0.1: check_instance_common: access.conf lob settings
+     ↺  Skipped control due to only_if condition: Productive EUDP pools
+  ↺  check-instance-lob-access-conf-dev-0.1: check_instance_common: access.conf lob settings
+     ↺  Skipped control due to only_if condition: Development pools
+
+ 
+
+
+Profile Summary: 11 successful controls, 4 control failures, 7 controls skipped
+Test Summary: 54 successful, 8 failures, 7 skipped

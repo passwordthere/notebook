@@ -1,0 +1,29 @@
+- 0Step Precheck
+Buildup
+- 1Step Check ticket
+Operational comment / is not prbxxxx
+Check if the hardware issue was fixed / failed battery has been replaced.
+- 2Step Reinstall OS
+Rediscover / no need(in gmp)
+Resintall OS / UUID: 0541080CE2BC11EB931B502B15EF60CA  
+Mark as Repaired in IML log
+Hardware check
+- 3Step Firmware Upgrade
+No need / HP SLES12 SP5
+- 4Step Additional Checks(Web Administration)
+FQDN(Network>iLO Dedicated Network Port>General)
+Server Name(Administration>Access Settings)
+Server FQDN
+SISM(Overview)
+Local Users(Administration>User Administration>Local Users>support:remote4SAP)
+SNMP(Administration>Management>SNMP Settings>Read:hppsp,Trap:automated)
+Boot(Virtual Media>Boot Order>Boot Mode>Legacy BIOS)
+- 5Step Check and active LACP
+no need
+- 6Step Adapt server status and comments
+Spare
+Maintenance Spare - do not touch!
+set Operational comment as null
+
+SNOW
+发回

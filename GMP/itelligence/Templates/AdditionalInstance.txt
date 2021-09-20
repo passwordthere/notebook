@@ -1,0 +1,122 @@
+- 1Precheck
+https://gmp.wdf.sap.corp/cgi-bin/objects.pl/CQA/query/?query=VirtualMachines.with(comment%20ilike%20%22%25l33%25%22)%20%2B%20%0ABladeServers.with(comment%20ilike%20%22%25l33%25%22)&attributes=ident&attributes=state&attributes=comment&attributes=ips&attributes=instances&attributes=databases&attributes=pool&attributes=pool.resourcePools&auto_start=1
+resource pool（in CQA:poolpool&resourcePools)
+vfiler(search SID:system:filer interface:fra3gmp208vicfc0002)
+volume SID(search SID:vm:SAP System)
+- 2Add additional instance
+Add-SAP-Instance will execute these steps to add a new Instance to existing SAP System L33,
+defined by ApplicationServer 'Application Instance C4C 06'
+
+1. Create virtual IPs and hostnames for:
+vaai06l33
+
+2. Installing needed VirtualMachine
+Installing VirtualMachine with 70.0 GB, 10 cores
+
+3. 'Assign Server' for new Instance of System L33 to new VM:
+Create SAP-Instances in Inventory
+Start virtual IPs of SAP-Instances on hosts
+Mount all relevant Volumes on hosts
+- 3HA Group
+check ok(search SID:VM:HA Group)
+- 4Install Bowbridge
+(vaai06l33) vsa8726716:~ #
+# echo "agent $(/opt/McAfee/agent/bin/cmdagent -i|grep ^Version)";echo "bowbridg                                                                                                                                                                                                  e Version: $(ls -l /opt/bowbridge/lib/libbbvsa.so | awk -F'so.' '{print $3}')"
+agent Version: 5.6.1.157
+bowbridge Version: 3111830
+- 5Post checks
+(inspec01-fra1) c5250702@vsa7035832:~> check_instance vsa8726716 -q
+Welcome to Inspec in Prod-FRA1-CIS
+
+Quiet mode
+
+Checking vsa8726716 used for L33 (AI06) in PROD-FRA1-C4C-BB208-APP01-SLES12SP4
+
+Autodetected LoB: C4C y/n
+Autodetected SID: L33 y/n
+Autodetected Instance Type: AI y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Please pick data protection type
+1 = Default
+2 = EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_c4c_ai -t ssh://$(whoami)@vsa8726716 --sudo --input-file /inspec_tmp/saas_testsuite/attributes/instances/lobs/c4c.yml --input sid=L33 | egrep -v '✔|↺'
+
+Profile: Instance checks for C4C AI servers (check_instance_for_ai_servers_c4c)
+Version: 0.1.0
+Target:  ssh://c5250702@vsa8726716:22
+
+Profile: Instance checks for AI servers (check_instance_for_ai_servers)
+Version: 0.1.0
+Target:  ssh://c5250702@vsa8726716:22
+
+  ×  check-instance-sapservices-0.1: check_instance_common: Sapservice file (1 failed)
+     ×  should not be empty
+     expected `"".empty?` to return false, got true
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5250702@vsa8726716:22
+
+  ×  check-instance-mcafee-0.1: Instance Check: McAfee Installation (3 failed)
+     ×  Command: `/opt/McAfee/agent/bin/cmdagent -i|grep EpoServerLastUsed| awk -F\:  '{ print $2 } '` stdout should match /\ 147.204.66.134|\ vsa478426|\ 10.17.122.114|\ dewdfias031/
+     expected "\n" to match /\ 147.204.66.134|\ vsa478426|\ 10.17.122.114|\ dewdfias031/
+     Diff:
+     @@ -1,2 +1 @@
+     -/\ 147.204.66.134|\ vsa478426|\ 10.17.122.114|\ dewdfias031/
+
+     ×  Command: `/opt/McAfee/agent/bin/cmdagent -i|grep LastASCTime` stdout should match "LastASCTime: \\d{14}"
+     expected "LastASCTime: N/A \n" to match "LastASCTime: \\d{14}"
+     Diff:
+     @@ -1,2 +1,2 @@
+     -LastASCTime: \d{14}
+     +LastASCTime: N/A
+
+     ×  Command: `/opt/McAfee/agent/bin/cmdagent -i|grep LastPolicyUpdateTime` stdout should match "LastPolicyUpdateTime: \\d{14}"
+     expected "LastPolicyUpdateTime: N/A \n" to match "LastPolicyUpdateTime: \\d{14}"
+     Diff:
+     @@ -1,2 +1,2 @@
+     -LastPolicyUpdateTime: \d{14}
+     +LastPolicyUpdateTime: N/A
+
+Profile: Instances checks of C4C systems (check_instance_for_c4c_servers)
+Version: 0.1.0
+Target:  ssh://c5250702@vsa8726716:22
+
+Profile Summary: 13 successful controls, 2 control failures, 7 controls skipped
+Test Summary: 58 successful, 4 failures, 7 skipped
+-------------------------------------------------------------------------------
+corrected "rsize" and "wsize" in /etc/fstab
+fixed permissions and group
+reinstalled mcafee
+
+UUID 9484237EDE0611EB86EE452E0C890888
+
+
+
+
+
+SNOW发回(payroll:snow|other LoB:spc)
+1 Assign to me
+2 Check TASK Service Offering "GCS-Compute-GMP"
+3 Select SPC as External System
+  Event Ticketing: HCP_EVENT_TICKETING
+  IBP: IBP_INTEGRATED_BUSINESS_PLANNING_NETWEAVER
+  ByD/C4C: SAAS_BYD_C4C_CLOUD_OPERATIONS
+  DEV/VLAB: SAAS_DEVELOPMENT_AND_VERIFICATION_LANDSCAPE_SYSTEM
+  SAP CP: CP_NEO_PLATFORM_SERVER_SUPPORT
+4 privider info:
+Hello ...
+We've prepared ...
+xxxxx ... (operational comments)
+Best Regards,
+Murphy Xu
+For being processed within our team reroute the ticket to our service offering: GCS-Compute-GMP
+(Default Assignment Group after rerouting: GCS GMP Compute)
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+For being processed further within our team send the ticket back to our service offering in ServiceNOW by sending it to the component
+GCS-CP-003 - GCS-Compute-GMP
+via the "Send to Support" functionality in SPC.
+5 Provider Input Required

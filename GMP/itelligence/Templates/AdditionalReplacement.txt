@@ -1,0 +1,110 @@
+- 1Create Physical Machine
+    1Support Matrix ok
+    2Hardware ok / Firmware updates no need
+- 2Prepare machine for system
+    Self-service	
+    Prepare Instance will perform below tasks:
+    Prepare Mount points of bsa11017 (Reserved for C4C) the same as bsa7033 (used for L1Z (DB))
+    Copy /usr/sap/sapservices from bsa7033 (used for L1Z (DB)) to bsa11017 (Reserved for C4C)
+    Prepare virtualip for bsa11017 (Reserved for C4C) with annotation
+
+    Database instance
+        bsa11017:~ # df -h /var/lib/hdb/
+        df: /var/lib/hdb/: No such file or directory
+        bsa11017:~ # ls -lah /var/lib/hdb/
+        ls: cannot access '/var/lib/hdb/': No such file or directory
+        bsa11017:~ # if grep -qs '/var/lib/hdb' /proc/mounts; then echo -e "\e[31mhdb_lock is not local\e[0m"; fi
+        bsa11017:~ # mkdir -p /var/lib/hdb
+        bsa11017:~ # chown root:sapsys /var/lib/hdb;chmod 0775 /var/lib/hdb/
+    Backup_fs volume
+        bsa11017:~ #  grep backup_fs /etc/fstab
+        usnsq1npchs01-sc01fi0075:/vol1_L1Z/q_sysfiles /backup_fs   nfs        rw,hard,intr,timeo=600,actimeo=600,nolock,proto=tcp,rsize=32768,wsize=32768 1 2
+- 4Sles 12
+    Add security limits
+        [root@<target_host>]: vi /etc/security/limits.conf
+        l1zadm  -       nofile  1048576
+    Adapt kernel
+        bsa11017:~ # cp /etc/tuned/sap-hana/tuned.conf /etc/tuned/sap-hana/tuned
+        conf.bak
+        bsa11017:~ # !vi
+        vi /etc/tuned/sap-hana/tuned.conf
+        bsa11017:~ # echo ""> /etc/tuned/sap-hana/tuned.conf
+        bsa11017:~ # !vi
+        vi /etc/tuned/sap-hana/tuned.conf
+        bsa11017:~ # tuned-adm profile sap-hana
+- 7Post checks
+(inspec01-nsq) c5327170@vsa7251543:~>
+> check_instance bsa11017 -q
+
+Welcome to Inspec in Prod-NSQ-CIS-Legacy
+
+Quiet mode
+
+Checking bsa11017 used for L1Z (DB) new in Prod-NSQ-C4C-BB-STOR03-DB01-BM-SLES12SP2
+
+
+Autodetected LoB: C4C y/n
+Autodetected SID: L1Z y/n
+Autodetected Instance Type: DB y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Skipping dataprotection, no EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_c4c_db -t ssh://$(whoami)@bsa11017 --sudo --input-file /inspec_tmp/saas_testsuite/attributes/instances/lobs/c4c.yml --input sid=L1Z checktype=pre | egrep -v '✔|↺'
+
+Profile: Instance checks for C4C DB servers (check_instance_for_db_servers_c4c)
+Version: 0.1.0
+Target:  ssh://c5327170@bsa11017:22
+
+
+
+Profile: Instances checks of C4C systems (check_instance_for_c4c_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@bsa11017:22
+
+
+
+Profile: Instance checks for DB systems (check_instance_for_db_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@bsa11017:22
+
+     limit.descriptors=1048576
+     LD_LIBRARY_PATH=/usr/sap/L1Z/HDB02/exe:;export LD_LIBRARY_PATH;/usr/sap/L1Z/HDB02/exe/sapstartsrv pf=/usr/sap/L1Z/SYS/profile/L1Z_HDB02_vadbl1z.byd.sap.corp -D -u l1zadm
+      should not be empty
+
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5327170@bsa11017:22
+
+
+
+Profile Summary: 18 successful controls, 0 control failures, 8 controls skipped
+Test Summary: 120 successful, 0 failures, 8 skipped
+
+
+
+
+
+SNOW>SPC
+Assigned to me
+-----------------------------------------
+SPC:privider/SNOW:external
+
+Hello C4C Colleagues,
+
+We've prepared instance for replacement:
+
+bsa11017 System available in pool used for L1Z (DB) new
+Please check from your side
+
+If everything is fine, please provide us with a downtime to do vip migration
+
+Best Regards,
+Murphy Xu
+For being processed further within our team send the ticket back to our service offering in ServiceNOW by sending it to the component
+GCS-CP-003 - GCS-Compute-GMP
+via the "Send to Support" functionality in SPC.
+-----------------------------------------
+Provider input

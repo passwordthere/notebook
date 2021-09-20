@@ -1,0 +1,26 @@
+2. Step: Adapt transport mount
+
+- Export vol1 of the production system to the two development systems
+Adding exports for:
+nsq1gmp209vipay0105:/vol1_FSW
+Permission: ReadWrite
+Hosts:
+vsa8800418
+vsa8800446
+
+- Umount old and mount new transport mount on the two development instances
+(vacifsu|vacsfsu|vadbfsu) vsa8800418:~ #
+# sed -i '/\/usr\/sap\/trans/s/^/#/g' /etc/fstab
+(vacifsu|vacsfsu|vadbfsu) vsa8800418:~ #
+# echo "nsq1gmp209vipay0105:/vol1_FSW/q_sysfiles/trans /usr/sap/trans nfs        rw,hard,intr,timeo=600,nolock,proto=tcp 1 2" >> /etc/fstab
+(vacifsu|vacsfsu|vadbfsu) vsa8800418:~ #
+# umount /usr/sap/trans; mount -a;df -h| grep '/usr/sap/trans'
+nsq1gmp209vipay0105:/vol1_FSW/q_sysfiles/trans                 45G  384K   45G   1% /usr/sap/trans
+
+(vacifsv|vacsfsv|vadbfsv) vsa8800446:~ #
+# sed -i '/\/usr\/sap\/trans/s/^/#/g' /etc/fstab
+(vacifsv|vacsfsv|vadbfsv) vsa8800446:~ #
+# echo "nsq1gmp209vipay0105:/vol1_FSW/q_sysfiles/trans /usr/sap/trans nfs        rw,hard,intr,timeo=600,nolock,proto=tcp 1 2" >> /etc/fstab
+(vacifsv|vacsfsv|vadbfsv) vsa8800446:~ #
+# umount /usr/sap/trans; mount -a;df -h| grep '/usr/sap/trans'
+nsq1gmp209vipay0105:/vol1_FSW/q_sysfiles/trans                 45G  384K   45G   1% /usr/sap/trans

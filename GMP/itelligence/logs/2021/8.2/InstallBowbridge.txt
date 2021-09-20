@@ -1,0 +1,97 @@
+4. Step: Install bowbridge
+
+- Install Bowbridge via Mind on all prepared CIs, AIs and the two DEV/Test instances
+
+- Test if output is correct: //4F4346BEF34611EB918D67B7EAE0BFF0
+vsa8800418
+gmp_info
+======================================================================
+Landscape           :	ProdNSQ
+HW Pool             :	PROD-NSQ-PAYROLL-STOR01-XENHV-SLES12SP5
+VM Pool             :	PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+Hypervisor          :	bsa15460
+Status              :	Live
+Comment             :	used for FSU
+Operational Comment :	
+EU data protection  :	No 
+======================================================================
+0
+0
+echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}"
+{"lsid":"fsu"}
+0
+0
+vsa8800446
+gmp_info
+======================================================================
+Landscape           :	ProdNSQ
+HW Pool             :	PROD-NSQ-PAYROLL-STOR01-XENHV-SLES12SP5
+VM Pool             :	PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+Hypervisor          :	bsa4245
+Status              :	Live
+Comment             :	used for FSV
+Operational Comment :	
+EU data protection  :	No 
+======================================================================
+0
+0
+echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}"
+{"lsid":"fsv"}
+0
+0
+vsa8800492
+gmp_info
+======================================================================
+Landscape           :	ProdNSQ
+HW Pool             :	PROD-NSQ-PAYROLL-STOR01-XENHV-SLES12SP5
+VM Pool             :	PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+Hypervisor          :	bsa7257
+Status              :	Live
+Comment             :	used for FSW (CI)
+Operational Comment :	
+EU data protection  :	No 
+======================================================================
+0
+0
+echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}"
+{"lsid":"fsw"}
+0
+0
+vsa8800493
+gmp_info
+======================================================================
+Landscape           :	ProdNSQ
+HW Pool             :	PROD-NSQ-PAYROLL-STOR01-XENHV-SLES12SP5
+VM Pool             :	PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+Hypervisor          :	rsa0501
+Status              :	Live
+Comment             :	used for FSW (AI01)
+Operational Comment :	
+EU data protection  :	No 
+======================================================================
+0
+0
+echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}"
+{"lsid":"fsw"}
+
+- Install Bowbridge after verifying output before   //8A2AA6C8F34611EB998A31441C58DD52
+vsa8800418
+echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}" | chef-client -j /dev/stdin -o recipe[saas_av_mcafee::bowbridge]
+timeout while executing echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}" | chef-client -j /dev/stdin -o recipe[saas_av_mcafee::bowbridge] on vsa8800418.byd.sap.corp
+-1
+0
+vsa8800446
+echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}" | chef-client -j /dev/stdin -o recipe[saas_av_mcafee::bowbridge]
+timeout while executing echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}" | chef-client -j /dev/stdin -o recipe[saas_av_mcafee::bowbridge] on vsa8800446.byd.sap.corp
+-1
+0
+vsa8800492
+echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}" | chef-client -j /dev/stdin -o recipe[saas_av_mcafee::bowbridge]
+timeout while executing echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}" | chef-client -j /dev/stdin -o recipe[saas_av_mcafee::bowbridge] on vsa8800492.byd.sap.corp
+-1
+0
+vsa8800493
+echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}" | chef-client -j /dev/stdin -o recipe[saas_av_mcafee::bowbridge]
+timeout while executing echo -e "{\"lsid\":\"$(gmp_info|grep ^Comment|awk '{print tolower($5)}')\"}" | chef-client -j /dev/stdin -o recipe[saas_av_mcafee::bowbridge] on vsa8800493.byd.sap.corp
+-1
+0

@@ -1,0 +1,69 @@
+1. Step: System Setup
+
+- Please verify that target pool is SG enabled
+PROD-NSQ-PAYROLL-STOR01
+
+- Target VM Pool needs to be PROD-NSQ-PAYROLL-STOR01(-LDAP)-SLES12SP4
+PROD-NSQ-PAYROLL-STOR01-RT02-LDAP-SLES12SP4
+
+- Use Self Service System Setup for each SID with provided Templates
+FSU     //72CC8010F33111EBA709161515EF60CA
+    System-Setup will execute 3 main steps to setup SAP System FSU,
+    specified by template PAYROLL_MEDIUM
+
+    1. Reserving Blades and/or installing needed VirtualMachines
+    Installing VirtualMachine with 32.0 GB RAM, 8 cores, 20.0 GB swap
+
+    2. 'Providing System Resources' for System FSU:
+    Create SAP System in Inventory
+    Create LDAP entries
+    Create virtual IPs
+    Create or reuse vFiler
+    Create SAP System Volumes
+
+    3. 'Assign Server' for all Instances of System FSU to relevant hosts:
+    Create SAP-Instances in Inventory
+    Start virtual IPs of SAP-Instances on hosts
+    Mount all relevant Volumes on hosts
+
+FSV     //32E6DE90F33211EB8C5817D384870929
+    System-Setup will execute 3 main steps to setup SAP System FSV,
+    specified by template PAYROLL_MEDIUM
+
+    1. Reserving Blades and/or installing needed VirtualMachines
+    Installing VirtualMachine with 32.0 GB RAM, 8 cores, 20.0 GB swap
+
+    2. 'Providing System Resources' for System FSV:
+    Create SAP System in Inventory
+    Create LDAP entries
+    Create virtual IPs
+    Create or reuse vFiler
+    Create SAP System Volumes
+
+    3. 'Assign Server' for all Instances of System FSV to relevant hosts:
+    Create SAP-Instances in Inventory
+    Start virtual IPs of SAP-Instances on hosts
+    Mount all relevant Volumes on hosts
+
+FSW     //4D25CD5CF33711EBBF26C52AD38BC7CC
+    System-Setup will execute 3 main steps to setup SAP System FSW,
+    specified by template PAYROLL_LARGE_HA
+
+    1. Reserving Blades and/or installing needed VirtualMachines
+    Installing VirtualMachine with 32.0 GB RAM, 8 cores, 20.0 GB swap
+    Installing VirtualMachine with 32.0 GB RAM, 8 cores, 20.0 GB swap
+    Installing VirtualMachine with 32.0 GB RAM, 8 cores, 20.0 GB swap
+
+    2. 'Providing System Resources' for System FSW:
+    Create SAP System in Inventory
+    Create LDAP entries
+    Create virtual IPs
+    Create or reuse vFiler
+    Create SAP System Volumes
+
+    3. 'Assign Server' for all Instances of System FSW to relevant hosts:
+    Create SAP-Instances in Inventory
+    Start virtual IPs of SAP-Instances on hosts
+    Mount all relevant Volumes on hosts
+
+- Note: Make sure that PAYROLL_LARGE_HA is used for the Production System

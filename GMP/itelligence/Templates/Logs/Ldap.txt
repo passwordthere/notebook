@@ -1,0 +1,33 @@
+- Check
+(vacsc3n) vsa7593450:~ #
+# systemctl restart slapd
+If 'systemctl' is not a typo you can run the following command to lookup the package that contains the binary:
+    command-not-found systemctl
+-bash: systemctl: command not found
+(vacsc3n) vsa7593450:~ #
+# ps -ef | grep slapd
+root     19216 18468  0 05:45 pts/1    00:00:00 grep slapd
+- Repair
+(vacsc3n) vsa7593450:~ #
+# rcldap start
+Starting ldap-server                                                 done
+(vacsc3n) vsa7593450:~ #
+# /opt/imal/bin/ldapchk.pl -v -syncstate
+LDAP daemon running.
+ldapsearch on local slapd succeeded.
+
+LDAP Server     rid  contextCSN timestamp
+---------------------------------------------
+10.196.244.13   001: Mon Jul  5 05:21:33 2021
+10.196.244.14   001: Mon Jul  5 05:21:33 2021
+127.0.0.1       001: Mon Jul  5 05:21:33 2021
+
+10.196.244.13   002: Thu Jul  1 09:19:12 2021
+10.196.244.14   002: Thu Jul  1 09:19:12 2021
+127.0.0.1       002: Thu Jul  1 09:19:12 2021
+
+---------------------------------------------
+contextCSN with all master instances in sync.
+LDAP master online: 2/2
+
+Alert: 110499307

@@ -1,0 +1,17 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+HintInGmpldapchk
+Description: Problems with local LDAP Process/The local LDAP database is not in sync!
+
+- Check
+# /opt/imal/bin/ldapchk.pl -v -syncstate
+# ps -ef | grep slapd
+	... are not running!
+
+- Repair
+# rcldap start
+# /opt/imal/bin/ldapchk.pl -v -syncstate
+	...
+	---------------------------------------------
+	contextCSN with all master instances in sync.
+	LDAP master online: 2/2
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

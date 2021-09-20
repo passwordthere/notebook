@@ -1,0 +1,164 @@
+Add-SAP-Instance will execute these steps to add a new Instance to existing SAP System K7Q,
+defined by ApplicationServer 'Application Instance 07'
+
+1. Create virtual IPs and hostnames for:
+vaai07k7q
+
+2. Installing needed VirtualMachine
+Installing VirtualMachine with 64.0 GB, 16 cores
+
+3. 'Assign Server' for new Instance of System K7Q to new VM:
+Create SAP-Instances in Inventory
+Start virtual IPs of SAP-Instances on hosts
+Mount all relevant Volumes on hosts
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	
+Add-SAP-Instance will execute these steps to add a new Instance to existing SAP System K7Q,
+defined by ApplicationServer 'Application Instance 08'
+
+1. Create virtual IPs and hostnames for:
+vaai08k7q
+
+2. Installing needed VirtualMachine
+Installing VirtualMachine with 64.0 GB, 16 cores
+
+3. 'Assign Server' for new Instance of System K7Q to new VM:
+Create SAP-Instances in Inventory
+Start virtual IPs of SAP-Instances on hosts
+Mount all relevant Volumes on hosts
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(vaai07k7q) vsa8732968:~ #
+# echo "agent $(/opt/McAfee/agent/bin/cmdagent -i|grep ^Version)";echo "bowbridge Version: $(ls -l /opt/bowbridge/lib/libbbvsa.so | awk -F'so.' '{print $3}')"
+agent Version: 5.5.1.362
+bowbridge Version: 3111830
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(inspec01-rot2) c5327170@vsa7035870:~>
+> check_instance vsa8732968 -q
+
+Welcome to Inspec in Prod-Rot2-CIS
+
+Quiet mode
+
+Checking vsa8732968 used for K7Q (AI07) in Prod-Rot2-BYD-BB-APP01-SLES12
+
+
+Autodetected LoB: BYD y/n
+Autodetected SID: K7Q y/n
+Autodetected Instance Type: AI y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Please pick data protection type
+1 = Default
+2 = EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_byd_ai -t ssh://$(whoami)@vsa8732968 --sudo --input-file /inspec_tmp/saas_testsuite/attributes/instances/lobs/byd.yml --input sid=K7Q | egrep -v '✔|↺'
+
+Profile: Instance checks for ByD AI systems (check_instance_for_ai_servers_byd)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8732968:22
+
+
+
+Profile: Instance checks for AI servers (check_instance_for_ai_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8732968:22
+
+  ×  check-instance-sapservices-0.1: check_instance_common: Sapservice file (1 failed)
+     ×  should not be empty
+     expected `"".empty?` to return false, got true
+
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5327170@vsa8732968:22
+
+
+
+Profile: Instances checks for ByD servers (check_instance_for_byd_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8732968:22
+
+
+
+Profile Summary: 14 successful controls, 1 control failure, 7 controls skipped
+Test Summary: 61 successful, 1 failure, 7 skipped
+
+?>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(vaai08k7q) vsa8732970:~ #
+# echo "agent $(/opt/McAfee/agent/bin/cmdagent -i|grep ^Version)";echo "bowbridge Version: $(ls -l /opt/bowbridge/lib/libbbvsa.so | awk -F'so.' '{print $3}')"
+agent Version: 5.5.1.362
+bowbridge Version: 3111830
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(inspec01-rot2) c5327170@vsa7035870:~>
+> check_instance vsa8732970 -q
+
+Welcome to Inspec in Prod-Rot2-CIS
+
+Quiet mode
+
+Checking vsa8732970 used for K7Q (AI08) in Prod-Rot2-BYD-BB-APP01-SLES12
+
+
+Autodetected LoB: BYD y/n
+Autodetected SID: K7Q y/n
+Autodetected Instance Type: AI y/n
+Please pick check type
+1 = Live server check (default)
+2 = Prepared instance
+3 = Prepared instance BB/DC migration
+Please pick data protection type
+1 = Default
+2 = EUDP
+Executing: inspec exec /inspec_tmp/saas_inspec_check_instance_byd_ai -t ssh://$(whoami)@vsa8732970 --sudo --input-fi                                                                                                                            le /inspec_tmp/saas_testsuite/attributes/instances/lobs/byd.yml --input sid=K7Q | egrep -v '✔|↺'
+
+Profile: Instance checks for ByD AI systems (check_instance_for_ai_servers_byd)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8732970:22
+
+
+
+Profile: Instance checks for AI servers (check_instance_for_ai_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8732970:22
+
+  ×  check-instance-sapservices-0.1: check_instance_common: Sapservice file (3 failed)
+     ×  File /usr/sap/sapservices mode should cmp == "0755"
+
+     expected: "0755"
+          got: "0644"
+
+     (compared using `cmp` matcher)
+
+     ×  File /usr/sap/sapservices group should eq "sapsys"
+
+     expected: "sapsys"
+          got: "root"
+
+     (compared using ==)
+
+     ×  should not be empty
+     expected `"".empty?` to return false, got true
+
+
+Profile: Instance checks for all server types (check_instance_for_all_servers)
+Version: 0.5
+Target:  ssh://c5327170@vsa8732970:22
+
+
+
+Profile: Instances checks for ByD servers (check_instance_for_byd_servers)
+Version: 0.1.0
+Target:  ssh://c5327170@vsa8732970:22
+
+
+
+Profile Summary: 14 successful controls, 1 control failure, 7 controls skipped
+Test Summary: 59 successful, 3 failures, 7 skipped
+
+------------fixed--------------------
+(vaai08k7q) vsa8732970:~ #
+# chgrp -v sapsys /usr/sap/sapservices && chmod -v 0755 /usr/sap/sapservices
+changed group of '/usr/sap/sapservices' from root to sapsys
+mode of '/usr/sap/sapservices' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)

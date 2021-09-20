@@ -1,0 +1,67 @@
+一、service request
+
+（DCM\NETWORK）标准模板	- GCS
+
+非标准			- Cross - Generic
+
+
+
+二、incident -> service catalog -> All -> Create incident
+
+"profile"+"profile My Groups"=GCS GMP Compute L2
+------------------------------------------------------------------------------------------------|
+Details:											|
+												|
+	Service offering (大组 Compute、Storage、Network、Backup、DCM...）GCS-Compute-GMP		|
+												|
+	Assignment group （小组L2、L3...）								|
+------------------------------------------------------------------------------------------------|
+当ticket进来，"Assign to me"="in progress"+"Assignment group"
+
+转给其他组，Reroute - set initial level
+
+转到SPC，"Service offering"=SPC Operation
+
+"External System"="Service offering"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DCM数据中心
+ITSM(IT Service Management)
+HCSM(Harmonized Customoer Service Management)
+
+
+
+
+
+
+ solco\10017225
+Personnel Number for iGMS China: EX39070 or CN39069
+Personnel nuber/Login for SAP ITP/
+52209
+murphy.xu@bs.nttdata.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+

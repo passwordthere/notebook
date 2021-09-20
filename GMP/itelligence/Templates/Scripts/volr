@@ -1,0 +1,57 @@
+#!/bin/bash
+#Last update: 2021-05-25
+user_id='c5296599'
+
+_hostname=$(</dev/stdin)
+hostname=($_hostname)
+read -srp "Password:" passwd
+
+echo -e "\n=========\033[33mRemoving exports\033[0m=========\n"
+
+CQAquery(){
+        local res=""
+		res=$(curl -m 20 -k --connect-timeout 10 -sS --retry 10 --retry-delay 5 --retry-max-time 120 -u "$user_id":"$passwd" "https://gmp.wdf.sap.corp/cgi-bin/rest/rest.pl/cqa/v1/query/attributes/?query=$1")
+        if [ $? -gt 0 ];then echo -e "\033[34mTime out:\033[0m query $1"; continue;else echo $res; fi
+        unset res
+}
+
+CQA(){
+        local url='https://gmp.wdf.sap.corp/cgi-bin/rest/rest.pl/cqa/v1/query/attributes/?query='
+#BladeServer or VirtualMachine
+        case $1 in
+                vsa*)   obj='VirtualMachines.with(ident%3D%3D%22'$1'%22)'
+                ;;
+                bsa*|rsa*|ucs*|rcs*)    obj='BladeServers.with(ident%3D%3D%22'$1'%22)'
+                ;;
+                *)      echo "Error"
+                        exit 1
+                ;;
+        esac
+        host_name=$1
+#query server state
+        state=$(CQAquery $obj'&attributes=state' | grep -oE '"state":"[^"]*' | cut -d '"' -f 4)
+        if [[ $state =~ "Live" ]]; then echo -e "\033[31mCheck status of\033[0m $1"; continue; fi
+        unset state
+#query server volumes
+        result_vol=$(CQAquery $obj'.mountPoints.volumes&attributes=name')
+        vol_name=($(echo $result_vol | grep -oE '"name":"[^"]*' | awk -F '"name":"' '{for(t=2;t<=NF;t++) print $t}'))
+        unset result_vol
+#query volumes' info
+        for j in "${!vol_name[@]}"
+        do
+                if [[ ${vol_name[j]} =~ _[transfer|adaptive|homes] ]]; then continue; fi
+                result=$(CQAquery 'Volumes.with(%20ident%3D%3D%22'${vol_name[j]}'%22)&attributes=storage&attributes=storage.ips.networks.landscapes.objectIds')
+                storage_name=$(echo $result | grep -oE '"storage":"[^"]*' | cut -d '"' -f 4)
+                landscape_id=$(echo $result | grep -oE '"Number":\["[0-9]+'| cut -d '"' -f 4)
+                self_service_vol_exports="https://gmp.wdf.sap.corp:443/cgi-bin/rest/rest.pl/SelfService/Volume%3A%20Exports/execute?&export_volume_summary=&export_volume_network=&export_volume_action=remove&export_volume_permission=&export_volume_volume=${vol_name[j]}&export_volume_qtree=%2F&export_volume_storage=$storage_name&export_volume_hosts=$host_name&export_volume_landscape=$landscape_id"
+                #echo -e $self_service_vol_exports
+				echo -e	$(curl -m 20 -k --connect-timeout 20 -sS --retry 5 --retry-delay 10 --retry-max-time 120 -u "$user_id":"$passwd" "$self_service_vol_exports")
+                unset result
+        done
+}
+
+for i in "${!hostname[@]}"
+do
+        CQA ${hostname[i]}
+
+done

@@ -1,0 +1,46 @@
+--- DO NOT CLOSE THIS TASK/REQUEST. AFTER FINISHING YOUR STEP PLEASE FORWARD THE TASK TO THE NEXT TEAM ACCORDING TO THE RUNBOOK IN THE TASK DESCRIPTION! ---
+Hi Storage team,
+
+Below is the full information for the system:
+
+Filer: defra4npcgmp502
+
+fra4gmp502vsevt01 vol1_tww8i_app aggr1_defra4npcgmp502_01 online RW 100GB 89.76GB  0%
+fra4gmp502vsevt01 vol2_tww8i_db aggr1_defra4npcgmp502_01 online RW 100GB 90.00GB  0%
+fra4gmp502vsevt01 vol3_tww8i_bkp aggr1_defra4npcgmp502_01 online RW 100GB 88.28GB  1%
+
+HA enabled: No
+
+Blade Server:
+n.a.
+
+VM Server:
+vsa8323724 Live used for W8I (tww8iapp01) rsa6424_hv fra4gmp502vievt0019:/vol68204_vmspace/q_vsa8323724
+vsa8323752 Live used for W8I (tww8idb01) rsa6422_hv fra4gmp502vievt0019:/vol68204_vmspace/q_vsa8323752
+
+
+
+vsa8372535	Live	used for cloud_connector	bsa12013_hv	usnsq1npchs06-byd01fi0003:/vol63878_vmspace/q_vsa8372535    usnsq1npchs06_byd01
+vsa8372702	Live	used for cloud_connector_2	bsa12013_hv	usnsq1npchs06-byd01fi0003:/vol63878_vmspace/q_vsa8372702
+
+
+
+
+
+
+
+##VMS need to be migrated to SLES12 hypervisor of <SLES12-HV Pool>
+
+## please write down the full information in the ticket if you find any SID volume is mounted in other SID server !!!
+Other Server: 
+n.a.
+
+Additional Volume
+n.a.
+
+Downtime has been registered for: 7th -July -2021 01:00 to 7th -July -2021 05:00 UTC.
+
+Best Regards,
+Murphy Xu
+GCS-Compute-GMP GCS-CP-003
+--- DO NOT CLOSE THIS TASK/REQUEST. AFTER FINISHING YOUR STEP PLEASE FORWARD THE TASK TO THE NEXT TEAM ACCORDING TO THE RUNBOOK IN THE TASK DESCRIPTION! ---

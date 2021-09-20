@@ -1,0 +1,8 @@
+manual
+    /etc/systemconfig/network/virtualip
+    /etc/fstab
+    gmp
+        status: live>parking in system, available in system>live
+        comments: used for CLAIRE(CI) old, used for SID(instance) new
+        vip 
+        inventory(server)

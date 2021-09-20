@@ -1,0 +1,55 @@
+SNOW
+Task Service Offering：GCS-Storage-NAS-Migration
+External Info
+
+INTERNAL
+- Provide Information
+- Register Downtime
+- Forward to Storage Team
+
+---------------------------------------------------------------------------------------------------------------------
+
+--- DO NOT CLOSE THIS TASK/REQUEST. AFTER FINISHING YOUR STEP PLEASE FORWARD THE TASK TO THE NEXT TEAM ACCORDING TO THE RUNBOOK IN THE TASK DESCRIPTION! ---
+Hi Storage team,
+
+Below is the full information for the system:	//3
+
+nsaXXXX
+vnsaXXXX:/vol1_<SID>
+vnsaXXXX:/vol2_<SID>
+vnsaXXXX:/vol3_<SID>
+
+HA enabled: Yes/No
+
+Blade Server:				//2
+n.a./bsaXXXX
+
+VM Server:
+vsaXXXXXX Live used for AAA (TR01) rsaXXXX_hv  vnsa59563:/vol/volXXXXXX_vmspace/q_vsaXXXXXX
+vsaXXXXXX Live used for AAA (CS)   bsaXXXX_hv  derot2npchs0X-hpchsc01fi000X:/vol/volXXXXXX_vmspace/q_vsaXXXXXX
+
+##VMS need to be migrated to SLES12 hypervisor of <SLES12-HV Pool>
+
+## please write down the full information in the ticket if you find any SID volume is mounted in other SID server !!!
+Other Server: 				//1
+bsaXXXXXX Live used for BBB
+rsaXXXXXX Live used for BBB (CI)
+rsaXXXXXX Live used for BBB (CS)
+
+Additional Volume
+n.a./vol_XXXXXX
+
+Before we can register a downtime please make sure below steps are completed:
+    SNow change approval (HxM/Payroll only)
+    SPC change approval
+    LoB approval
+    Customer notification
+
+or
+
+Downtime has been registered for: 
+
+Best Regards,
+Murphy Xu
+GCS-Compute-GMP GCS-CP-003
+--- DO NOT CLOSE THIS TASK/REQUEST. AFTER FINISHING YOUR STEP PLEASE FORWARD THE TASK TO THE NEXT TEAM ACCORDING TO THE RUNBOOK IN THE TASK DESCRIPTION! ---

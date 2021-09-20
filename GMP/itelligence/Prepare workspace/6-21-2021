@@ -1,0 +1,82 @@
+6/21/2021
+
+HOMEWORK
+
+Basic VM Operations:
+	soft shutdown:
+		rm -f /etc/xen/auto/vsa8689185
+		virsh shutdown vsa8689185
+
+	power on:
+		ln -s /etc/xen/vm/vsa8689185 /etc/xen/auto/vsa8689185
+		virsh --keepalive-interval 30 create /etc/xen/vm/vsa8689185
+
+	power off:
+		rm -f /etc/xen/auto/vsa8689185
+		virsh destroy vsa8689185
+
+	quick power on:
+		ln -s /etc/xen/vm/vsa8689185 /etc/xen/auto/vsa8689185
+		virsh --keepalive-interval 30 create /etc/xen/vm/vsa8689185
+
+	soft reboot:
+		rm -f /etc/xen/auto/vsa8689185
+		virsh shutdown vsa8689185
+		virsh --keepalive-interval 30 create /etc/xen/vm/vsa8689185
+		ln -s /etc/xen/vm/vsa8689185 /etc/xen/auto/vsa8689185
+
+	reset:
+		rm -f /etc/xen/auto/vsa8689185
+		virsh destroy vsa8689185
+		ln -s /etc/xen/vm/vsa8689185 /etc/xen/auto/vsa8689185
+		virsh --keepalive-interval 30 create /etc/xen/vm/vsa8689185
+
+Advanced VM Operations:
+	repair:
+		rm -f /etc/xen/auto/vsa8689185
+		virsh shutdown vsa8689185
+		rm -f /etc/xen/vm/vsa8689185
+		rm -f /boot/initrd-vsa8689185
+		rm -f /bott/vmlinuz-vsa8689185
+		rm -f /vdev/vsa8689185-swap
+		rm -f /vdev/bd27472562-xvdz
+		rm -f /vdev/bd27472561-xvdc
+		rm -f /vdev/bd27472561-xvdb
+		rm -f /vdev/bd27472561-xvda
+		lvremove -f /dev/local/vm_vsa8689185_swap
+		lvchange -an /dev/local/vm_vsa8689185_swap
+		mkswap /vmsapce/vsa8689185/bd27472562-xvdz
+	migrate alive:
+		lvremove -f /dev/local/vm_vsa8689185_swap
+		lvchange -an /dev/local/vm_vsa8689185_swap
+		rm -f /etc/xen/vm/vsa8689185
+		rm -f /boot/initrd-vsa8689185
+		rm -f /boot/vmlinuz-vsa8689185
+		rm -f /vdev/vsa8689185-swap
+		rm -f /vdev/bd27472562-xvdz
+		rm -f /vdev/bd27472561-xvdc
+		rm -f /vdev/bd27472560-xvdb
+		rm -f /vdev/bd27472559-xvda
+		rmdir /vmspace/vsa8689185
+		mkswap /vmsapce/vsa8689185/bd27472562-xvdz
+		ln -s /etc/xen/vm/vsa8689185 /etc/xen/auto/vsa8689185
+		virsh --keepalive-interval 30 create /etc/xen/vm/vsa8689185
+	migrate offline:
+		rm -f /etc/xen/auto/vsa8689185
+		virsh shutdown vsa8689185
+		lvremove -f /dev/local/vm_vsa8689185_swap
+		lvchange -an /dev/local/vm_vsa8689185_swap
+		rm -f /boot/vmlinuz-vsa8689185
+		rm -f /vdev/vsa8689185-swap
+		rm -f /vdev/bd27472562-svdz
+		rm -f /vdev/bd27472561-xvdc
+		rm -f /vdev/bd27472560-xvdb
+		rm -f /vdev/bd27472559-xvda
+		rm -f /etc/xen/vm/vsa8689185
+		rm -f /boot/initrd-vsa8689185
+		mkswap /vmspace/vsa8689185/bd27472562-xvdz
+
+
+
+
+

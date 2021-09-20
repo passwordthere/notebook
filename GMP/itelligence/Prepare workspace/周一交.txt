@@ -1,0 +1,360 @@
+https://bit-twiki.wdf.sap.corp/bin/view/Level2/XProducts/BladeInstall
+
+Your Name:
+Subject:BladeInstall
+以下问题，除特殊词外，一律用中文写答案。
+
+1.	目前我们环境中所支持的SuSE Linux操作操系统版本有哪些？最推荐的SuSE Linux操作系统版本是哪一个？SLES 12 SP2的VM只能装在哪种版本的Hypervisor里？ 
+	SLES 11 SP4, SLES 12 SP2, SLES 12 SP4, SLES 12 SP5;
+	SLES 12 SP5; SLES 11 SP3, SLES 11 SP4, SLES 12 SP 1, SLES 12 SP 2, SLES 12 SP3,
+	SLES 12 SP4, SLES 12 SP5
+
+2.	机器正在做固件升级，被你误操作关机了，导致机器无法正常启动无法重装OS，是否有方法让机器起死回生？大致方法是什么。
+	删除重建
+
+3.	我们环境有哪些LOB支持SLES12SP5?
+	C4C, SAP-ET/EVT, SAP CP
+
+4.	如何检查SLES11和SLES12的系统已经成功完成了固件升级？
+	Log Summary - see more details
+
+5.	机器从一个HW Pool移到另一个HW pool需要满足哪些条件？请逐条列出并列全。
+	1、产品或用途一致
+	2、LOB批准情况下从BB017移到SC或DMZ
+	3、重用情况下，检查是否正在使用或ticket是否被批准
+	4、出现中断或紧急情况，可以使用reserved服务器
+	5、不能从一个datacenter移到另一个
+
+6.	机器从一个HW Pool移到另一个HW pool, 不reinstall OS, 这一改变对原有操作系统是否有影响？对这台机器的Inventory有什么影响？
+
+7.	物理机点install OS之前应做哪些检查？如涉及命令，请写明命令的含义。
+	-in use检查：
+		virtualip list
+		virsh list --all
+		ps auxww | grep [s]ap
+		df -h
+	硬件检查：
+		HP Blade/HP Rack --> IML log: 
+			1、frame ip 
+			2、Offshore a1sroot 
+			3、b: Devices Bays>server>IML log
+			  r: Information>Integrated Management Log 
+			4、gather logs as documented in this documentation？？？
+		IBM/Lenovo --> IMM log: 
+			ssh -l a1sroot <rackserver>r syshealth summary
+			ssh -l a1sroot <rackserver>r chlog
+		Lenovo(SR950) --> XCC log: 
+			system status/hardware health
+		Cisco --> USC manager: 
+			gather logs as documented in this documentation
+8.	对SLES11 SP3，哪个LoB还在使用？目前我们支持哪些LoB安装SLES12 SP4？
+	Payroll
+	除了C4C
+9.	请用GUI的方式查询rsa1022 IML Log, 是否有硬件问题？并复制IML log(Integrated Management Log)中最新的前两条信息。
+	没问题
+	92		System Revision	06/19/2021 03:46	06/19/2021 03:46	1	Firmware flashed (ProLiant System BIOS - U17 v2.80 (10/16/2020))
+	91		System Revision	06/19/2021 03:42	06/19/2021 03:42	1	Firmware flashed (iLO 4 2.77)
+10.	请用GUI的方式查询bsa12212 Event Log, 是否有硬件问题？并复制Event log中最新的前两条信息。
+	有问题
+	Rack Infrastructure	[NOT SET] 	[NOT SET] 	4	Server Blade Enclosure Power Request Denied: Enclosure Busy (Enclosure Serial Number SGH706XLN6, Slot 13)
+	Maintenance	05/03/2018 07:11	05/03/2018 07:11	1	IML Cleared (iLO 4 user:OAtmp-a1sroot-5AEAB513)
+11.	请用GUI的方式查询ucs0700是否有硬件问题，请写出查询步骤。
+	有问题
+	搜frame ip > Offshore打开chrome a1sroot > SEL log/Health
+	1 | 07/17/2020 07:48:31 UTC | CIMC | Event Logging Disabled SEL_FULLNESS #0x9b | Log Area Reset/Cleared | Asserted 
+	2 | 09/11/2020 15:11:23 UTC | CIMC | Memory DDR4_P2_F2_ECC #0x93 | read 2 correctable ECC errors on CPU2 DIMM F2  | Asserted 
+12.	对“Changing network configuration of HP blades“, 对没有配置trunk的HP机器，为何set enet-connection需要格外的小心？
+	无法安装SLES12
+13.	HP的机器inventory里Mac 1，Mac 2，Penultimate MAC，Last MAC分别对应iLO Onboard Administrator里哪些网络接口的Mac?哪一个Mac的inventory信息不对会导致install OS失败，如rsa4014和bsa14634.
+	MAC1, MAC2: Adapter 2
+	Penultimate MAC, Last MAC: Adapter 3
+
+14.	如果机器的inventory信息不对，如Manufacturer信息有误，可通过什么方式使其自动更正？是否可以直接编辑来更正？
+	add/remove按钮先删除后选择
+	不可以
+15.	HP的机器在装机过程中循环restore镜像文件，有什么临时方法（workaround）可以解决此问题？
+	登录frame：ssh a1sroot@bmaxxxx
+	控制刀片机：connect server x
+	textcons
+	部署image后按ESC中止PXE-Boot
+16.	给IBM的机器install OS, 发现机器根本没有PXE启动，而是直接从HDD启动了，可以怎样做使其临时从pxe网卡启动？
+	搜索frame ip
+	远程a1sroot
+	virtual media > boot order > network device 1 > apply
+17.	Install OS过程中，pxe启动会上传一个以Mac1的地址命名的配置文件到tftp服务器哪个路径下？此文件有什么用途？
+
+18.	你对UEFI的理解是什么？Install OS时机器为何需要设置为非UEFI启动？
+	Unified Extensible Firmware Interface
+	统一的 可扩展的 硬件接口
+	无论linux，android，windows，macintosh....都可以统一通过UEFI启动，而非各自不同的bios。并且已启动的UEFI应用还可以启动其他应用。统一，开源。
+19.	点完Install OS后，报错”died: cannot find boot disk. disks found: /dev/sda /dev/sdb, but none of them is bootable in BIOS“，你会怎么做？如涉及命令请写明命令的含义。
+	create a MBR boot record:
+		ssh a1sroot@bsaxxxx
+		connect server x
+		在安装期间: parted /dev/sda mklabel msdos
+		重启安装过程
+20.	Soft reset和reset有何区别？
+
+21.	没有配置trunk的HP机器是否支持安装SLES12？
+	不支持
+22.	IBM/Lenovo机器，你按照文档做完firmware upgrade后，失败了，应该怎么做?
+	X6 bios and kdump修复：perl -p -i.bak -e "s/crashkernel=768M/crashkernel=1024M,high crashkernel=512M,low/;s/console=xvc0,115200/console=ttyS0,115200n8/;s/--unit=1 /--unit=0/" /etc/default/grub; grub2-mkconfig -o /boot/grub2/grub.cfg
+23.	Install OS过程中，device mangement log中一直卡在“tell TIC/GMP we're done..." or "install finished, rebooting system”，你尝试ssh无法连接，于是通过console连了上去，看到机器卡在”Starting kiwi-firstboot service“，导致卡住的可能原因是什么？你会如何排错。
+	无法正确获取chef配置
+	tail -n 10 /var/log/custom-firstboot.log
+	如果第一次重启后无法到达默认网关，则gmp不会显示错误消息
+24.	可以通过什么样的简易方式，使自己可以看到后续整个装机的过程（录视频除外，需要看到整个装机过程是以防装机失败时自己不知道装机卡在哪个地方）。
+	ssh a1sroot@rsaxxxxr
+	connect server x
+	textcons
+25.	假如bsa7674有hostdown, 请快速找出整个landscape中所有reserved/Hot Spare/Spare的机器，把你找到的机器写出来，并写明你会优先选哪台机器作为替换机（较难,需考虑周全，请注意bsa7674为Live机器，谨慎操作）。
+	1、cqa: Landscapes.with(name ilike "%rot2%").hwPools.servers.with(state ilike "%spare%" or state ilike "%hotspare%" or state ilike "%reserved%")
+	2、selected attributes: hostname, state, [location]
+	3、execute
+	4、选用Hotspare状态下的
+	rsa1848 	Spare
+	rsa0769 	Reserved
+	rsa0757 	Hot Spare
+	bsa12321 	Reserved
+	rsa0771 	Hot Spare
+	bsa11602 	Hot Spare
+	bsa4183 	Hot Spare
+	rsa4071 	Hot Spare
+	bsa10572 	Hot Spare
+	rsa0322 	Reserved
+	bsa4216 	Spare
+	rsa5946 	Spare
+	rsa0263 	Reserved
+	rsa1034 	Hot Spare
+	bsa9179 	Spare
+	bsa15544 	Spare
+	rsa0354 	Spare
+	rsa6188 	Reserved
+	bsa15551 	Spare
+	rsa4117 	Reserved
+	bsa12308 	Spare
+	bsa3580 	Spare
+	rsa0346 	Reserved
+	rsa0656 	Reserved
+	rsa0750 	Reserved
+	bsa11576 	Spare
+	rsa0695 	Reserved
+	rsa5024 	Spare
+	bsa4169 	Spare
+	rsa1689 	Hot Spare
+	bsa8437 	Spare
+	rsa0739 	Reserved
+	rsa6186 	Spare
+	rsa0667 	Spare
+	rsa5028 	Spare
+	rsa5002 	Reserved
+	bsa8344 	Spare
+	rsa6162 	Spare
+	bsa11565 	Hot Spare
+	bsa7684 	Spare
+	bsa0789 	Reserved
+	rsa1040 	Hot Spare
+	bsa7400 	Hot Spare
+	bsa8444 	Hot Spare
+	bsa9203 	Spare
+	rsa1893 	Reserved
+	bsa4043 	Spare
+	bsa4224 	Spare
+	bsa1930 	Spare
+	rsa0655 	Reserved
+	rsa1697 	Reserved
+	rsa0745 	Reserved
+	rsa6206 	Reserved
+	bsa7300 	Spare
+	rsa0362 	Hot Spare
+	rsa0759 	Reserved
+	bsa12302 	Spare
+	rsa0732 	Reserved
+	bsa8434 	Reserved
+	bsa8890 	Reserved
+	bsa8438 	Reserved
+	rsa0260 	Reserved
+	rsa2515 	Reserved
+	bsa3215 	Spare
+	rsa0848 	Reserved
+	bsa9404 	Reserved
+	rsa0243 	Reserved
+	rsa1030 	Reserved
+	bsa9187 	Spare
+	rsa1895 	Hot Spare
+	bsa4709 	Reserved
+	rsa6182 	Reserved
+	bsa9201 	Spare
+	rsa6208 	Reserved
+	bsa3253 	Spare
+	bsa7702 	Spare
+	rsa0741 	Reserved
+	rsa0690 	Reserved
+	rsa4775 	Hot Spare
+	rsa1412 	Spare
+	rsa0681 	Reserved
+	bsa15580 	Spare
+	bsa12571 	Reserved
+	rsa1695 	Spare
+	rsa0679 	Reserved
+	rsa4116 	Reserved
+	bsa15553 	Spare
+	bsa4696 	Spare
+	rsa0844 	Spare
+	rsa1687 	Hot Spare
+	rsa6179 	Reserved
+	bsa12286 	Hot Spare
+	bsa12567 	Spare
+	bsa4708 	Hot Spare
+	bsa8884 	Reserved
+	bsa12323 	Reserved
+	rsa0683 	Reserved
+	rsa0849 	Hot Spare
+	rsa0729 	Spare
+	rsa0770 	Reserved
+	rsa6185 	Spare
+	bsa12300 	Spare
+	rsa7871 	Spare
+	bsa8140 	Spare
+	bsa7289 	Spare
+	bsa7413 	Spare
+	bsa15572 	Spare
+	bsa2910 	Spare
+	bsa7783 	Reserved
+	bsa10574 	Spare
+	bsa12322 	Reserved
+	rsa1031 	Reserved
+	bsa9178 	Spare
+	rsa0663 	Spare
+	rsa1032 	Spare
+	bsa9223 	Spare
+	rsa0746 	Reserved
+	bsa4046 	Reserved
+	rsa0694 	Reserved
+	bsa3870 	Spare
+	bsa8442 	Spare
+	bsa12566 	Spare
+	rsa0730 	Reserved
+	bsa12317 	Spare
+	bsa8358 	Spare
+	bsa8887 	Reserved
+	rsa0240 	Spare
+	rsa4241 	Hot Spare
+	rsa6207 	Reserved
+	bsa8888 	Spare
+	rsa6173 	Reserved
+	bsa11583 	Spare
+	rsa0319 	Spare
+	bsa8349 	Spare
+	bsa4733 	Spare
+	bsa8882 	Spare
+	bsa8889 	Reserved
+	rsa0818 	Reserved
+	rsa0758 	Spare
+	rsa0736 	Hot Spare
+	bsa1694 	Spare
+	bsa7796 	Spare
+	rsa4876 	Spare
+	bsa12320 	Reserved
+	bsa9411 	Reserved
+	bsa7677 	Hot Spare
+	rsa0261 	Reserved
+	bsa7405 	Reserved
+	rsa1192 	Hot Spare
+	rsa1351 	Spare
+	bsa9407 	Reserved
+	rsa0245 	Spare
+	bsa4730 	Spare
+	rsa1849 	Hot Spare
+	bsa12324 	Reserved
+	rsa4242 	Reserved
+	rsa1536 	Reserved
+	bsa8328 	Spare
+	rsa6199 	Reserved
+	bsa7725 	Spare
+	rsa0738 	Reserved
+	bsa4747 	Hot Spare
+	bsa8355 	Spare
+	rsa1696 	Hot Spare
+	rsa4240 	Reserved
+	bsa7675 	Spare
+	rsa1533 	Reserved
+	bsa7737 	Spare
+	bsa9195 	Spare
+	bsa9402 	Spare
+	rsa4885 	Reserved
+	bsa3250 	Reserved
+	bsa7306 	Spare
+	bsa9405 	Reserved
+	rsa4626 	Hot Spare
+	bsa12327 	Spare
+	rsa6172 	Reserved
+	bsa8348 	Hot Spare
+	rsa0666 	Reserved
+	rsa1355 	Spare
+	rsa6178 	Spare
+	rsa1648 	Hot Spare
+	bsa9191 	Reserved
+	rsa1409 	Reserved
+	rsa1692 	Reserved
+	rsa1691 	Spare
+	bsa8357 	Spare
+	bsa8892 	Spare
+	rsa0657 	Reserved
+	bsa7794 	Reserved
+	bsa3863 	Spare
+	bsa9414 	Reserved
+	bsa12293 	Spare
+	rsa0246 	Hot Spare
+	bsa4768 	Spare
+	bsa4633 	Hot Spare
+	rsa0207 	Reserved
+	rsa0355 	Hot Spare
+	rsa4884 	Reserved
+	rsa6205 	Reserved
+	bsa4748 	Reserved
+	rsa5937 	Spare
+	rsa4127 	Spare
+	rsa1686 	Reserved
+	bsa9409 	Reserved
+	rsa0737 	Reserved
+	bsa7275 	Spare
+	bsa12306 	Spare
+	bsa0776 	Hot Spare
+	bsa9185 	Hot Spare
+	rsa0964 	Spare
+	bsa8443 	Reserved
+	bsa1749 	Spare
+	rsa1543 	Spare
+	rsa1860 	Spare
+	rsa0661 	Reserved
+	bsa9403 	Reserved
+	rsa0658 	Reserved
+	rsa1531 	Reserved
+	rsa0962 	Hot Spare
+	rsa0851 	Reserved
+	bsa11579 	Spare
+	bsa9413 	Reserved
+	rsa0206 	Spare
+	rsa0223 	Hot Spare
+	bsa11564 	Reserved
+	rsa4123 	Spare
+	rsa1685 	Hot Spare
+	rsa4773 	Reserved
+	bsa4111 	Hot Spare
+	bsa9163 	Spare
+	rsa6169 	Spare
+	bsa3231 	Hot Spare
+	bsa7727 	Reserved
+	bsa0782 	Reserved
+	bsa9410 	Reserved
+	rsa0350 	Reserved
+	bsa7786 	Spare
+	rsa1693 	Reserved
+26.	登录机器的textcons过程中，报错"iLO Advanced License required for this functionality", 如何处理?
+	安装相应license
+27.	固件升级（firmware upgrade)在install OS之前做和之后做是否有影响？
+	有影响
+	不升级固件可能导致无法正确安装系统或chef配置错误
+28.	正在install OS,是否可以去点Edit编辑相应的inventory?
+	不能

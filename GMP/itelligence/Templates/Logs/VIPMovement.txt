@@ -1,0 +1,14 @@
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+- Self Service
+Move Instance will perform below actions for all given pairs of hosts: <\br>
+Check the power states and the general status of the given hosts
+Change states
+Move nfs mounts to target host
+Create a backup of original fstab
+Move virtualip to target host
+adapt the inventory data
+comment the sources /etc/fstab file
+Your given data sets are:
+Source Host		Target Host
+name	power	status	comment		name	power	status	comment
+vsa8026119	on	Live	used for CLAIRE (CI)		vsa8728944	on	System available in pool	used for replacement test

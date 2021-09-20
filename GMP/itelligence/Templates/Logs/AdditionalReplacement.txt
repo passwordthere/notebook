@@ -1,0 +1,5 @@
+	
+Prepare Instance will perform below tasks:
+Prepare Mount points of bsa11017 (Reserved for C4C) the same as bsa7033 (used for L1Z (DB))
+Copy /usr/sap/sapservices from bsa7033 (used for L1Z (DB)) to bsa11017 (Reserved for C4C)
+Prepare virtualip for bsa11017 (Reserved for C4C) with annotation
